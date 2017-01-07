@@ -64,8 +64,6 @@ public class Main extends Activity {
 
     TextView text_logo;
 
-    Context context;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,8 +72,6 @@ public class Main extends Activity {
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
         face = Typeface.createFromAsset(getAssets(), "fonts/Tweed.ttf");
-
-        context = this.context;
 
         //реклама
         //--------------------
