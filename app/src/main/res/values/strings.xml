@@ -3,4 +3,17 @@
     <string name="save_i_ustanovleno">Сохранено и установлено</string>
     <string name="Ustanovit">Установить обои</string>
     <string name="Sgeneririvat">Сгенерировать новые</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
+    <string name="info_o_proge">
+        Generate a Wallpaper\n\n
+        created Deomin Dmitriy 2017\n\n
+        Картинка генерируется рандомно(случйно), каждая следующая уникальна
+    </string>
+
+    <array name="spisok_razresheniy">
+        <item>100x100</item>
+        <item>200x100</item>
+        <item>300x100</item>
+    </array>
 </resources>
