@@ -9,6 +9,10 @@
         Generate a Wallpaper\n\n
         created Deomin Dmitriy 2017\n\n
         Картинка генерируется рандомно(случйно), каждая следующая уникальна
+        \n\n\n
+
+        обрезка - https://github.com/biokys/cropimage
+
     </string>
 
     <array name="spisok_razresheniy">

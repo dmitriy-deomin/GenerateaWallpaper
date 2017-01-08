@@ -50,6 +50,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingTop="10dp">
+
+        <CheckBox
+            android:id="@+id/checkBox_obrezka_oboev"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Обрезать обои перед установкой" />
+
+        <TextView
+            android:id="@+id/textView_info_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Перед установкой(если она включена выше) будет предложено обрезать картинку чтобы был эфект прокрутки (если много рабочих столов).Если стол один рекомендуется выключить обрезку(качество картинки при обрезке падает) " />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingBottom="10dp"
         android:visibility="gone">
 

@@ -1,7 +1,7 @@
 package dmitriy.deomin.generateawallpaper;
 
-import android.app.WallpaperManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -17,11 +17,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+
 /**
  * Created by dimon on 31.12.16.
  */
 
 public class Holst extends View {
+
 
     Paint kist = new Paint();
     Bitmap bmp;
@@ -31,16 +33,17 @@ public class Holst extends View {
     public Holst(Context context) {
         super(context);
         setDrawingCacheEnabled(true);
-        w = Main.wd;
-        h = Main.hd;
-
+        setFocusable(true);
     }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
 
-        if (!Main.run) {
+        w  = canvas.getWidth();
+        h = canvas.getHeight();
 
+        if (!Main.run) {
 
             canvas.drawColor(random_color());
 
@@ -62,6 +65,7 @@ public class Holst extends View {
 
             buildDrawingCache();
             bmp = getDrawingCache();
+
             canvas.drawBitmap(bmp, 0, 0, null);
 
         }
@@ -75,7 +79,7 @@ public class Holst extends View {
             shadowPaint.setAntiAlias(true);
             shadowPaint.setTextAlign(Paint.Align.CENTER);
             shadowPaint.setColor(Color.WHITE);
-            shadowPaint.setTextSize(100);
+            shadowPaint.setTextSize(Main.wd/10);
             shadowPaint.setStrokeWidth(2.0f);
             shadowPaint.setStyle(Paint.Style.STROKE);
             shadowPaint.setShadowLayer(5.0f, 10.0f, 10.0f, Color.BLACK);
@@ -100,19 +104,6 @@ public class Holst extends View {
     public int random_nomer(int min, int max) {
         max -= min;
         return (int) (Math.random() * ++max) + min;
-    }
-
-    public static Bitmap resize(Bitmap bit, int newWidth, int newHeight) {
-
-        int width = bit.getWidth();
-        int height = bit.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        Matrix matrix = new Matrix();
-        matrix.postScale(scaleWidth, scaleHeight);
-        Bitmap resizedBitmap = Bitmap.createBitmap(bit, 0, 0,
-                width, height, matrix, true);
-        return resizedBitmap;
     }
 
     @Override
@@ -141,14 +132,15 @@ public class Holst extends View {
 
             //после сохранения установим картинку обоями если включено
             if(Main.auto_oboi_crete){
-                //********
-                WallpaperManager wallpaperManager = WallpaperManager.getInstance(getContext());
-                try {
-                    wallpaperManager.setBitmap(bmp);
-                    Toast.makeText(getContext(), R.string.save_i_ustanovleno, Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                
+                //обрежем картинку если включено
+                //будем слать сигналы
+
+                //послать сигнал
+                Intent imag  = new Intent("Key_signala_pizdec");
+                imag.putExtra("key_data_url_imag",Environment.getExternalStorageDirectory().toString()+url_img);
+                getContext().sendBroadcast(imag);
+
                 //************
             }else {
                 Toast.makeText(getContext(),"Сохранено", Toast.LENGTH_SHORT).show();
@@ -162,4 +154,5 @@ public class Holst extends View {
         }
         return  false;
     }
+
 }

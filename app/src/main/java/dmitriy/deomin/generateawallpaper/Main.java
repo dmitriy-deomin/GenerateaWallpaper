@@ -3,6 +3,7 @@ package dmitriy.deomin.generateawallpaper;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.WallpaperManager;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -54,6 +55,8 @@ public class Main extends Activity {
     public static boolean run;
     //установка обоев автоматом
     public static boolean auto_oboi_crete;
+    //обрезка обоев перед установкой
+    public static boolean auto_oboi_costrate;
 
     //шрифт
     public static Typeface face;
@@ -63,6 +66,7 @@ public class Main extends Activity {
     public final String APP_PREFERENCES = "mysettings"; // файл сохранялки
 
     TextView text_logo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +123,7 @@ public class Main extends Activity {
         //настройки загружаем
         run = save_read_bool("run");
         auto_oboi_crete = save_read_bool("auto_oboi_crete");
+        auto_oboi_costrate = save_read_bool("auto_oboi_costrate");
 
     }
 
@@ -142,6 +147,7 @@ public class Main extends Activity {
         ((TextView)content.findViewById(R.id.textView_info_1)).setTypeface(face);
         ((TextView)content.findViewById(R.id.textView_info_2)).setTypeface(face);
         ((TextView)content.findViewById(R.id.textView_info_3)).setTypeface(face);
+        ((TextView)content.findViewById(R.id.textView_info_4)).setTypeface(face);
 
         CheckBox checkBox_run = (CheckBox)content.findViewById(R.id.checkBox_run);
         checkBox_run.setTypeface(face);
@@ -162,6 +168,17 @@ public class Main extends Activity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 auto_oboi_crete = isChecked;
                 save_value_bool("auto_oboi_crete",isChecked);
+            }
+        });
+
+        CheckBox checkBox_auto_obrezka = (CheckBox)content.findViewById(R.id.checkBox_obrezka_oboev);
+        checkBox_auto_obrezka.setTypeface(face);
+        checkBox_auto_obrezka.setChecked(save_read_bool("auto_oboi_costrate"));
+        checkBox_auto_obrezka.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                auto_oboi_costrate = isChecked;
+                save_value_bool("auto_oboi_costrate",isChecked);
             }
         });
 
