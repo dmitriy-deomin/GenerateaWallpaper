@@ -287,8 +287,9 @@ public class Main extends Activity {
     public static int save_read_int(String key_save) {  // чтение
         if (mSettings.contains(key_save)) {
             return (mSettings.getInt(key_save, 0));
+        }else {
+            return 0;
         }
-        return 0;
     }
     //------------------------------------
     public int random_color() {
@@ -332,16 +333,16 @@ public class Main extends Activity {
         //устанавливем цвет и загружаем настройки
         ((LinearLayout)content.findViewById(R.id.fon_shemy)).setBackgroundColor(random_color());
 
-        Button sh1,sh2,sh777,sh_user;
+        Button sh0,sh1,sh777,sh_user;
 
+        sh0 = ((Button)content.findViewById(R.id.button_shema0));
         sh1 = ((Button)content.findViewById(R.id.button_shema1));
-        sh2 = ((Button)content.findViewById(R.id.button_shema2));
         sh777 = ((Button)content.findViewById(R.id.button_shema777));
         sh_user = ((Button)content.findViewById(R.id.button_shema_user));
 
 
+        sh0.setTypeface(face);
         sh1.setTypeface(face);
-        sh2.setTypeface(face);
         sh777.setTypeface(face);
         sh_user.setTypeface(face);
 
@@ -350,11 +351,11 @@ public class Main extends Activity {
             case 777:
                 sh777.setTextColor(Color.GREEN);
                 break;
+            case 0:
+                sh0.setTextColor(Color.GREEN);
+                break;
             case 1:
                 sh1.setTextColor(Color.GREEN);
-                break;
-            case 2:
-                sh2.setTextColor(Color.GREEN);
                 break;
             case 1000:
                 sh_user.setTextColor(Color.GREEN);
@@ -371,6 +372,16 @@ public class Main extends Activity {
                 alertDialog.cancel();
             }
         });
+        sh0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha);
+                v.startAnimation(anim);
+                Schema_rand_kartinki = 0;
+                save_value_int("Schema_rand_kartinki",0);
+                alertDialog.cancel();
+            }
+        });
         sh1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -378,16 +389,6 @@ public class Main extends Activity {
                 v.startAnimation(anim);
                 Schema_rand_kartinki = 1;
                 save_value_int("Schema_rand_kartinki",1);
-                alertDialog.cancel();
-            }
-        });
-        sh2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha);
-                v.startAnimation(anim);
-                Schema_rand_kartinki = 2;
-                save_value_int("Schema_rand_kartinki",2);
                 alertDialog.cancel();
             }
         });

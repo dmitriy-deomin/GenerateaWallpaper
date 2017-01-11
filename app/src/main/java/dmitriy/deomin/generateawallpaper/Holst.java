@@ -44,13 +44,14 @@ public class Holst extends View {
         if (!Main.run) {
             //По какой схеме рисовать картинки
             switch (Main.Schema_rand_kartinki) {
-                case 1:
+                //по умолчанию сохранялка кидает 0 поетому так запутано
+                case 0:
                     //круг,квадрат,линии
-                    shema1(canvas);
+                    shema0(canvas);
                     break;
-                case 2:
-                    //круг,квадрат,линии
-                    shema2(canvas);
+                case 1:
+                    //много квадратов
+                    shema1(canvas);
                     break;
                 case 777:
                     //чистый фон
@@ -69,7 +70,7 @@ public class Holst extends View {
     }
 
 
-    private void shema1(Canvas canvas) {
+    private void shema0(Canvas canvas) {
         canvas.drawColor(random_color());
 
         kist.setAntiAlias(true);
@@ -94,7 +95,7 @@ public class Holst extends View {
         canvas.drawBitmap(bmp, 0, 0, null);
     }
 
-    private void shema2(Canvas canvas) {
+    private void shema1(Canvas canvas) {
         canvas.drawColor(random_color());
 
         kist.setAntiAlias(true);

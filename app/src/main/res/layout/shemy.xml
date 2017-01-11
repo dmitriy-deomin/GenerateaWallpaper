@@ -21,14 +21,14 @@
         android:text="Схема №0\n (Чистый фон)" />
 
     <Button
-        android:id="@+id/button_shema1"
+        android:id="@+id/button_shema0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:text="Схема №1\n(Круг,квадрат,линии)" />
 
     <Button
-        android:id="@+id/button_shema2"
+        android:id="@+id/button_shema1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
