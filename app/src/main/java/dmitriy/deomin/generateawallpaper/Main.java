@@ -24,6 +24,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -49,14 +51,15 @@ public class Main extends Activity {
     private final String vk_grupa = "https://vk.com/generateawallpaper";
 
     //размеры экрана
+    //--------------------
     public static int wd;
     public static int hd;
-    //какой запуск
-    public static boolean run;
-    //установка обоев автоматом
-    public static boolean auto_oboi_crete;
-    //обрезка обоев перед установкой
-    public static boolean auto_oboi_costrate;
+    //--------------------
+
+    public static boolean run; //какой запуск
+    public static boolean auto_oboi_crete;  //установка обоев автоматом
+    public static boolean auto_oboi_costrate; //обрезка обоев перед установкой
+    public static int Schema_rand_kartinki; //по какой схеме будет риоваться картинка
 
     //шрифт
     public static Typeface face;
@@ -76,6 +79,7 @@ public class Main extends Activity {
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
         face = Typeface.createFromAsset(getAssets(), "fonts/Tweed.ttf");
+
 
         //реклама
         //--------------------
@@ -112,7 +116,7 @@ public class Main extends Activity {
         //инфо
         text_logo = (TextView)findViewById(R.id.name_i_versia);
         text_logo.setTypeface(face);
-        text_logo.setText("Generateawallpaper "+getVersion());
+        text_logo.setText("Генератор обоев "+getVersion());
         //кнопки
         ((Button)findViewById(R.id.menu)).setTypeface(face);
         ((Button)findViewById(R.id.open_random_oboi)).setTypeface(face);
@@ -124,15 +128,20 @@ public class Main extends Activity {
         run = save_read_bool("run");
         auto_oboi_crete = save_read_bool("auto_oboi_crete");
         auto_oboi_costrate = save_read_bool("auto_oboi_costrate");
+        Schema_rand_kartinki = save_read_int("Schema_rand_kartinki");
 
     }
 
-    public void Gen(View view) {
+    public void Gen(View v) {
+        Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha);
+        v.startAnimation(anim);
         Intent i = new Intent(this,Generat.class);
         startActivity(i);
     }
 
-    public void Menu(View view) {
+    public void Menu(View v) {
+        Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha);
+        v.startAnimation(anim);
         final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, android.R.style.Theme_Holo));
         final View content = LayoutInflater.from(Main.this).inflate(R.layout.menu_progi,null);
         content.setMinimumWidth(wd);
@@ -220,7 +229,9 @@ public class Main extends Activity {
 
 
     }
-    public void opengruppa(View view) {
+    public void opengruppa(View v) {
+        Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha);
+        v.startAnimation(anim);
         Intent browseIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(vk_grupa));
         startActivity(browseIntent);
     }
@@ -291,7 +302,9 @@ public class Main extends Activity {
         return (int) (Math.random() * ++max) + min;
     }
 
-    public void O_proge(View view) {
+    public void O_proge(View v) {
+        Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha);
+        v.startAnimation(anim);
         final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, android.R.style.Theme_Holo));
         final View content = LayoutInflater.from(Main.this).inflate(R.layout.info_o_proge,null);
         content.setMinimumWidth(wd);
@@ -302,6 +315,95 @@ public class Main extends Activity {
 
         //устанавливем цвет и загружаем настройки
         ((LinearLayout)content.findViewById(R.id.info_loaut)).setBackgroundColor(random_color());
+
+    }
+
+    public void Vibrat_shemu(View v){
+        Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha);
+        v.startAnimation(anim);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, android.R.style.Theme_Holo));
+        final View content = LayoutInflater.from(Main.this).inflate(R.layout.shemy,null);
+        content.setMinimumWidth(wd);
+        content.setMinimumHeight(wd/2);
+        builder.setView(content);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        //устанавливем цвет и загружаем настройки
+        ((LinearLayout)content.findViewById(R.id.fon_shemy)).setBackgroundColor(random_color());
+
+        Button sh1,sh2,sh777,sh_user;
+
+        sh1 = ((Button)content.findViewById(R.id.button_shema1));
+        sh2 = ((Button)content.findViewById(R.id.button_shema2));
+        sh777 = ((Button)content.findViewById(R.id.button_shema777));
+        sh_user = ((Button)content.findViewById(R.id.button_shema_user));
+
+
+        sh1.setTypeface(face);
+        sh2.setTypeface(face);
+        sh777.setTypeface(face);
+        sh_user.setTypeface(face);
+
+
+        switch (Schema_rand_kartinki){
+            case 777:
+                sh777.setTextColor(Color.GREEN);
+                break;
+            case 1:
+                sh1.setTextColor(Color.GREEN);
+                break;
+            case 2:
+                sh2.setTextColor(Color.GREEN);
+                break;
+            case 1000:
+                sh_user.setTextColor(Color.GREEN);
+                break;
+        }
+
+        sh777.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha);
+                v.startAnimation(anim);
+                Schema_rand_kartinki = 777;
+                save_value_int("Schema_rand_kartinki",777);
+                alertDialog.cancel();
+            }
+        });
+        sh1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha);
+                v.startAnimation(anim);
+                Schema_rand_kartinki = 1;
+                save_value_int("Schema_rand_kartinki",1);
+                alertDialog.cancel();
+            }
+        });
+        sh2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha);
+                v.startAnimation(anim);
+                Schema_rand_kartinki = 2;
+                save_value_int("Schema_rand_kartinki",2);
+                alertDialog.cancel();
+            }
+        });
+        sh_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha);
+                v.startAnimation(anim);
+                Schema_rand_kartinki = 1000;
+                save_value_int("Schema_rand_kartinki",1000);
+                alertDialog.cancel();
+            }
+        });
+
+
+
 
     }
 }

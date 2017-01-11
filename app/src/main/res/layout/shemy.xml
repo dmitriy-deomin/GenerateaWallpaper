@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fon_shemy"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/button_shema_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="Настоить свою"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/button_shema777"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="Схема №0\n (Чистый фон)" />
+
+    <Button
+        android:id="@+id/button_shema1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="Схема №1\n(Круг,квадрат,линии)" />
+
+    <Button
+        android:id="@+id/button_shema2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="Схема №2\n(Много квадратов)" />
+
+</LinearLayout>

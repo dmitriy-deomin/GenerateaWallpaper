@@ -20,15 +20,18 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="40dp"
             android:layout_weight="1"
+            android:enabled="true"
             android:foregroundGravity="center"
             android:gravity="center"
             android:onClick="O_proge"
-            android:text="Generateawallpaper 0.1" />
+            android:text="Generate a wallpaper 0.1"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
 
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="10dp"
-            android:layout_height="43dp"
+            android:layout_height="40dp"
             android:layout_margin="2dp"
             android:layout_weight="0.3"
             android:alpha="0.7"
@@ -42,16 +45,31 @@
         android:id="@+id/menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:onClick="Menu"
-        android:text="Меню" />
+        android:text="Меню"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/vibrat_shemu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:onClick="Vibrat_shemu"
+        android:text="Выбрать схему рисования"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/open_random_oboi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:background="@android:color/transparent"
         android:onClick="Gen"
         android:text="Создать обои"
+        android:textColor="@android:color/black"
         android:textSize="24sp" />
 
     <com.google.android.gms.ads.AdView
