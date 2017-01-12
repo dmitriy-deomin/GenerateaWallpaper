@@ -79,8 +79,8 @@ public class Generat extends Activity {
         intent.putExtra(CropImage.SCALE, false);
 
         // if the aspect ratio is fixed to ratio 3/2
-        intent.putExtra(CropImage.ASPECT_X, 100);
-        intent.putExtra(CropImage.ASPECT_Y, 100);
+        intent.putExtra(CropImage.ASPECT_X, 1);
+        intent.putExtra(CropImage.ASPECT_Y, 1);
 
         // start activity CropImage with certain request code and listen
         // for result

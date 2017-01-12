@@ -150,8 +150,13 @@ public class Main extends Activity {
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
 
+
+        int col = random_color();
         //устанавливем цвет и загружаем настройки
-        ((LinearLayout)content.findViewById(R.id.menu_diaolog)).setBackgroundColor(random_color());
+        ((LinearLayout)content.findViewById(R.id.menu_diaolog)).setBackgroundColor(col);
+        //и главному фону тоже поменяем фон
+        ((LinearLayout)findViewById(R.id.main)).setBackgroundColor(col);
+
 
         ((TextView)content.findViewById(R.id.textView_info_1)).setTypeface(face);
         ((TextView)content.findViewById(R.id.textView_info_2)).setTypeface(face);
@@ -314,9 +319,11 @@ public class Main extends Activity {
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
 
-        //устанавливем цвет и загружаем настройки
-        ((LinearLayout)content.findViewById(R.id.info_loaut)).setBackgroundColor(random_color());
-
+        int col = random_color();
+        //устанавливем цвет фону и загружаем настройки
+        ((LinearLayout)content.findViewById(R.id.info_loaut)).setBackgroundColor(col);
+        //и главному фону тоже поменяем фон
+        ((LinearLayout)findViewById(R.id.main)).setBackgroundColor(col);
     }
 
     public void Vibrat_shemu(View v){
@@ -330,8 +337,14 @@ public class Main extends Activity {
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
 
+
+        int col = random_color();
         //устанавливем цвет и загружаем настройки
-        ((LinearLayout)content.findViewById(R.id.fon_shemy)).setBackgroundColor(random_color());
+        ((LinearLayout)content.findViewById(R.id.fon_shemy)).setBackgroundColor(col);
+        //и главному фону тоже поменяем фон
+        ((LinearLayout)findViewById(R.id.main)).setBackgroundColor(col);
+
+
 
         Button sh0,sh1,sh777,sh_user;
 

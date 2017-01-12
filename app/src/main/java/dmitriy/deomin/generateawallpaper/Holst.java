@@ -8,6 +8,9 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.os.Environment;
+import android.os.Handler;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -22,10 +25,12 @@ import java.io.IOException;
  * Created by dimon on 31.12.16.
  */
 
-public class Holst extends View {
+public class Holst extends View implements  View.OnTouchListener{
 
     Paint kist = new Paint();
     Bitmap bmp;
+    Handler handler;
+    int long_clik;
     int w;
     int h;
 
@@ -33,6 +38,8 @@ public class Holst extends View {
         super(context);
         setDrawingCacheEnabled(true);
         setFocusable(true);
+        //слушаем нажатия
+        setOnTouchListener(this);
     }
 
     @Override
@@ -153,6 +160,9 @@ public class Holst extends View {
         canvas.drawText(getContext().getString(R.string.Ustanovit), w / 2, 200, shadowPaint);
         canvas.drawText(getContext().getString(R.string.Sgeneririvat), w / 2, h - 200, shadowPaint);
 
+        shadowPaint.setTextSize(Main.wd / 25);
+        canvas.drawText("(долгое нажатие запустит автомат тыкания)", w / 2, h - 100, shadowPaint);
+
         buildDrawingCache();
         bmp = getDrawingCache();
         canvas.drawBitmap(bmp, 0, 0, null);
@@ -170,53 +180,106 @@ public class Holst extends View {
         return (int) (Math.random() * ++max) + min;
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (event.getY() < (h / 2)) {
 
-            String url_img = "/Pictures/Generateawallpaper/" + "Gen" + System.currentTimeMillis() + ".png";
+    private void clik_view_avtomat(final Boolean run){
 
-            //создадим папки если нет
-            File sddir = new File(Environment.getExternalStorageDirectory().toString() + "/Pictures/Generateawallpaper/");
-            if (!sddir.exists()) {
-                sddir.mkdirs();
+        if(handler==null){
+            handler = new Handler();
+            handler.post(new Runnable() {
+                public void run() {
+
+                    // действие
+                    //--------------------
+                    Main.run = false;
+                    bmp = null;
+                    destroyDrawingCache();
+                    invalidate();
+                    //---------------------
+
+                    if(run){
+                        //повторы 1 секуннд
+                        handler.postDelayed(this,1000*1);
+                    }
+
+                }
+            });
+        }else{
+            if(!run){
+                handler.removeMessages(0);
+                handler=null;
             }
 
-            try {
-                FileOutputStream fos = new FileOutputStream(new File(Environment.getExternalStorageDirectory().toString(), url_img));
-                bmp.compress(Bitmap.CompressFormat.PNG, 100, fos);
-                fos.flush();
-                fos.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-            //после сохранения установим картинку обоями если включено
-            if (Main.auto_oboi_crete) {
-
-                //обрежем картинку если включено
-                //будем слать сигналы
-
-                //послать сигнал
-                Intent imag = new Intent("Key_signala_pizdec");
-                imag.putExtra("key_data_url_imag", Environment.getExternalStorageDirectory().toString() + url_img);
-                getContext().sendBroadcast(imag);
-
-                //************
-            } else {
-                Toast.makeText(getContext(), "Сохранено", Toast.LENGTH_SHORT).show();
-            }
-
-        } else {
-            Main.run = false;
-            bmp = null;
-            destroyDrawingCache();
-            invalidate();
         }
-        return false;
+
     }
 
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+
+
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            //сохраним время нажатия
+            long_clik = Integer.valueOf((int) System.currentTimeMillis());
+        }
+
+        if(event.getAction()==MotionEvent.ACTION_UP){
+
+            //сравним время нажатия и отпускания
+            if((long_clik+500)<Integer.valueOf((int) System.currentTimeMillis())){
+                //если долго жмет то запустим автомат
+                clik_view_avtomat(true);
+            }else {
+                //если задержка маленькая остановим автомат если он работал и экран не трогаем
+                if (handler != null) {
+                    clik_view_avtomat(false);
+                } else {
+                    //и дальше будем смотреть куды тыкнул пользователь
+                    if (event.getY() < (h / 2)) {
+
+                        String url_img = "/Pictures/Generateawallpaper/" + "Gen" + System.currentTimeMillis() + ".png";
+
+                        //создадим папки если нет
+                        File sddir = new File(Environment.getExternalStorageDirectory().toString() + "/Pictures/Generateawallpaper/");
+                        if (!sddir.exists()) {
+                            sddir.mkdirs();
+                        }
+
+                        try {
+                            FileOutputStream fos = new FileOutputStream(new File(Environment.getExternalStorageDirectory().toString(), url_img));
+                            bmp.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                            fos.flush();
+                            fos.close();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        //после сохранения установим картинку обоями если включено
+                        if (Main.auto_oboi_crete) {
+
+                            //обрежем картинку если включено
+                            //будем слать сигналы
+
+                            //послать сигнал
+                            Intent imag = new Intent("Key_signala_pizdec");
+                            imag.putExtra("key_data_url_imag", Environment.getExternalStorageDirectory().toString() + url_img);
+                            getContext().sendBroadcast(imag);
+
+                            //************
+                        } else {
+                            Toast.makeText(getContext(), "Сохранено", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Main.run = false;
+                        bmp = null;
+                        destroyDrawingCache();
+                        invalidate();
+                    }
+                }
+            }
+        }
+        return true;
+    }
 }
