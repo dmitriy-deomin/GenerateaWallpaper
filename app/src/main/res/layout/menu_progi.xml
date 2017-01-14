@@ -3,27 +3,45 @@
     android:id="@+id/menu_diaolog"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     android:orientation="vertical">
 
-    <LinearLayout
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/abaut_knopka"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="10dp">
+        android:background="@android:color/transparent"
+        android:onClick="O_proge"
+        android:text="О программе" />
 
-        <CheckBox
-            android:id="@+id/checkBox_run"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="Первый экран с надписями" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
 
-        <TextView
-            android:id="@+id/textView_info_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text='При нажатии кнопки "генерировать обои" первым показывается информация где какая кнопка' />
-    </LinearLayout>
+                <CheckBox
+                    android:id="@+id/checkBox_run"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Первый экран с надписями" />
+
+                <TextView
+                    android:id="@+id/textView_info_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text='При нажатии кнопки "генерировать обои" первым показывается информация где какая кнопка' />
+            </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,13 +75,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Обрезать обои перед установкой" />
+            android:text="Обрезать обои" />
 
         <TextView
             android:id="@+id/textView_info_4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Перед установкой(если она включена выше) будет предложено обрезать картинку чтобы был эфект прокрутки (если много рабочих столов).Если стол один рекомендуется выключить обрезку(качество картинки при обрезке падает) " />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="10dp">
+
+
+        <EditText
+            android:id="@+id/editText_teme_avtomat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Установите значение (1000=1сек)"
+            android:inputType="number"
+            android:text="1000" />
+
+        <TextView
+            android:id="@+id/textView_info_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Время автомататического тыкания\n1000 = 1 секунда \n(При длительном нажатии внизу экрана запускается )" />
 
     </LinearLayout>
 
@@ -109,5 +152,16 @@
         android:enabled="false"
         android:text="Настройка генератора"
         android:visibility="gone" />
+
+    <Button
+        android:id="@+id/button_save_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="Сохранить" />
+
+</LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

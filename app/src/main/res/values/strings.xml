@@ -12,7 +12,13 @@
         crop-https://github.com/biokys/cropimage
         \n\n\n
         Картинка генерируется рандомно(случйно), каждая следующая уникальна
+        \n\n
+        Клик на логотипе изменит цвет фона
+        \n
+        Долгий тап на логотипе сохранит/удалит цвет
     </string>
+    <string name="saved">Сохранено</string>
+    <string name="obrezano_i_save">Обрезано и сохранено</string>
 
     <array name="spisok_razresheniy">
         <item>100x100</item>

@@ -11,9 +11,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -31,6 +35,21 @@ public class Generat extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(new Holst(this));
+
+       //чтобы экран не гас
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+       //скрывем кнопки навигации
+        if (Build.VERSION.SDK_INT < 19) {
+            View v = this.getWindow().getDecorView();
+            v.setSystemUiVisibility(View.GONE);
+        } else {
+            View decorView = getWindow().getDecorView();
+            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
+
 
         //слушаем  и если че будем реагировать
         //***************************************************************************
@@ -51,9 +70,14 @@ public class Generat extends Activity {
                         //запустим в мясорубку
                         runCropImage(file);
                     }else{
-                        //иначе сразу установим
-                        Bitmap bitmap = BitmapFactory.decodeFile(file);
-                        setOboi(bitmap);
+                        //если включено установка обоев
+                        if(Main.auto_oboi_crete) {
+                            //установим
+                            Bitmap bitmap = BitmapFactory.decodeFile(file);
+                            setOboi(bitmap);
+                        }else {
+                            Toast.makeText(getApplicationContext(), R.string.saved, Toast.LENGTH_SHORT).show();
+                        }
                     }
 
 
@@ -100,10 +124,16 @@ public class Generat extends Activity {
                 if (path == null) {
                     return;
                 }
+                //если включена установка обоев
+                if(Main.auto_oboi_crete){
+                    //увеличим картинку и установим обоями
+                    Bitmap bitmap = BitmapFactory.decodeFile(file);
+                    setOboi(resize(bitmap,Main.hd,Main.hd));
+                }else {
+                    //иначе скажем
+                    Toast.makeText(getApplicationContext(), R.string.obrezano_i_save, Toast.LENGTH_SHORT).show();
+                }
 
-                //увеличим картинку и установим обоями
-                Bitmap bitmap = BitmapFactory.decodeFile(file);
-                setOboi(resize(bitmap,Main.hd,Main.hd));
 
             }
         }

@@ -34,4 +34,11 @@
         android:background="@android:color/transparent"
         android:text="Схема №2\n(Много квадратов)" />
 
+    <Button
+        android:id="@+id/button_shema2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="Схема №3\n(Непонятно что)" />
+
 </LinearLayout>

@@ -7,6 +7,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.RectF;
 import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
@@ -25,12 +27,13 @@ import java.io.IOException;
  * Created by dimon on 31.12.16.
  */
 
-public class Holst extends View implements  View.OnTouchListener{
+public class Holst extends View implements View.OnTouchListener {
 
     Paint kist = new Paint();
     Bitmap bmp;
     Handler handler;
     int long_clik;
+    float mesto_clik;
     int w;
     int h;
 
@@ -59,6 +62,10 @@ public class Holst extends View implements  View.OnTouchListener{
                 case 1:
                     //много квадратов
                     shema1(canvas);
+                    break;
+                case 2:
+                    //непонятно что
+                    shema2(canvas);
                     break;
                 case 777:
                     //чистый фон
@@ -137,6 +144,35 @@ public class Holst extends View implements  View.OnTouchListener{
         //------------------------------------
     }
 
+    private void shema2(Canvas canvas) {
+        canvas.drawColor(random_color());
+
+        kist.setAntiAlias(true);
+        kist.setStrokeWidth(random_nomer(2, 100));
+        kist.setColor(random_color());
+
+
+        Path path = new Path();
+
+        path.moveTo(random_nomer(0,w), random_nomer(0,w));
+        //много херни
+        for (int i = 0; i < random_nomer(0, 777); i++) {
+            path.lineTo(random_nomer(0,w), random_nomer(0,h));
+        }
+        path.close();
+
+
+        canvas.drawPath(path,kist);
+
+
+        //это херня обязательна
+        //--------------------
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+        //------------------------------------
+    }
+
     private void shema777(Canvas canvas) {
         canvas.drawColor(random_color());
         buildDrawingCache();
@@ -145,7 +181,7 @@ public class Holst extends View implements  View.OnTouchListener{
     }
 
     private void help_risunok(Canvas canvas) {
-        canvas.drawColor(random_color());
+        canvas.drawColor(Main.color_fon_main);
 
         Paint shadowPaint = new Paint();
 
@@ -160,8 +196,13 @@ public class Holst extends View implements  View.OnTouchListener{
         canvas.drawText(getContext().getString(R.string.Ustanovit), w / 2, 200, shadowPaint);
         canvas.drawText(getContext().getString(R.string.Sgeneririvat), w / 2, h - 200, shadowPaint);
 
+        shadowPaint.setTextSize(Main.wd / 12);
+        canvas.drawText("Свайп с верху в низ", w / 2, h/2, shadowPaint);
+        canvas.drawText("покажет кнопки навигации", w / 2, h/2+60, shadowPaint);
+
         shadowPaint.setTextSize(Main.wd / 25);
-        canvas.drawText("(долгое нажатие запустит автомат тыкания)", w / 2, h - 100, shadowPaint);
+        canvas.drawText("(долгое нажатие сохранит картинку)", w / 2, 250, shadowPaint);
+        canvas.drawText("(долгое нажатие запустит автомат тыкания)", w / 2, h - 150, shadowPaint);
 
         buildDrawingCache();
         bmp = getDrawingCache();
@@ -181,9 +222,9 @@ public class Holst extends View implements  View.OnTouchListener{
     }
 
 
-    private void clik_view_avtomat(final Boolean run){
+    private void clik_view_avtomat(final Boolean run) {
 
-        if(handler==null){
+        if (handler == null) {
             handler = new Handler();
             handler.post(new Runnable() {
                 public void run() {
@@ -196,19 +237,44 @@ public class Holst extends View implements  View.OnTouchListener{
                     invalidate();
                     //---------------------
 
-                    if(run){
+                    if (run) {
                         //повторы 1 секуннд
-                        handler.postDelayed(this,1000*1);
+                        handler.postDelayed(this, Main.Time_dolbeshki_ekrana);
                     }
 
                 }
             });
-        }else{
-            if(!run){
+        } else {
+            if (!run) {
                 handler.removeMessages(0);
-                handler=null;
+                handler = null;
             }
 
+        }
+
+    }
+
+    private void save_imag_file(Boolean pokaz_toast, String url_img) {
+
+        //создадим папки если нет
+        File sddir = new File(Environment.getExternalStorageDirectory().toString() + "/Pictures/Generateawallpaper/");
+        if (!sddir.exists()) {
+            sddir.mkdirs();
+        }
+
+        try {
+            FileOutputStream fos = new FileOutputStream(new File(Environment.getExternalStorageDirectory().toString(), url_img));
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (pokaz_toast) {
+            Toast.makeText(getContext(), R.string.saved, Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -216,19 +282,30 @@ public class Holst extends View implements  View.OnTouchListener{
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
-
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             //сохраним время нажатия
             long_clik = Integer.valueOf((int) System.currentTimeMillis());
+            //сохраним место нажатия
+            mesto_clik = event.getY();
         }
 
-        if(event.getAction()==MotionEvent.ACTION_UP){
+        if (event.getAction() == MotionEvent.ACTION_UP) {
 
             //сравним время нажатия и отпускания
-            if((long_clik+500)<Integer.valueOf((int) System.currentTimeMillis())){
-                //если долго жмет то запустим автомат
-                clik_view_avtomat(true);
-            }else {
+            if ((long_clik + 500) < Integer.valueOf((int) System.currentTimeMillis())) {
+
+                //если долго посмотрим че он жал
+                if (event.getY() < (h / 2)) {
+                    //если выше то сохраним картинку в файл
+                    //путь и имя файла
+                    String url_img = "/Pictures/Generateawallpaper/" + "Gen" + System.currentTimeMillis() + ".png";
+                    save_imag_file(true, url_img);
+                } else {
+                    //если где сгенерировать, то запустим автомат
+                    clik_view_avtomat(true);
+                }
+
+            } else {
                 //если задержка маленькая остановим автомат если он работал и экран не трогаем
                 if (handler != null) {
                     clik_view_avtomat(false);
@@ -236,41 +313,25 @@ public class Holst extends View implements  View.OnTouchListener{
                     //и дальше будем смотреть куды тыкнул пользователь
                     if (event.getY() < (h / 2)) {
 
-                        String url_img = "/Pictures/Generateawallpaper/" + "Gen" + System.currentTimeMillis() + ".png";
 
-                        //создадим папки если нет
-                        File sddir = new File(Environment.getExternalStorageDirectory().toString() + "/Pictures/Generateawallpaper/");
-                        if (!sddir.exists()) {
-                            sddir.mkdirs();
-                        }
+                        //если это был свайп вниз(чтобы кнопки навигации показать)
+                        if(mesto_clik+10<event.getY()){
+                            //нечего не делаем
+                        }else {
+                            //путь и имя файла
+                            String url_img = "/Pictures/Generateawallpaper/" + "Gen" + System.currentTimeMillis() + ".png";
 
-                        try {
-                            FileOutputStream fos = new FileOutputStream(new File(Environment.getExternalStorageDirectory().toString(), url_img));
-                            bmp.compress(Bitmap.CompressFormat.PNG, 100, fos);
-                            fos.flush();
-                            fos.close();
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                            //сночала сахраним картинку
+                            save_imag_file(false, url_img);
 
-                        //после сохранения установим картинку обоями если включено
-                        if (Main.auto_oboi_crete) {
-
-                            //обрежем картинку если включено
-                            //будем слать сигналы
-
-                            //послать сигнал
+                            //после сохранения установим картинку обоями если включено или обрежем её
+                            // будем слать сигналы в
+                            //**************
                             Intent imag = new Intent("Key_signala_pizdec");
                             imag.putExtra("key_data_url_imag", Environment.getExternalStorageDirectory().toString() + url_img);
                             getContext().sendBroadcast(imag);
-
                             //************
-                        } else {
-                            Toast.makeText(getContext(), "Сохранено", Toast.LENGTH_SHORT).show();
                         }
-
                     } else {
                         Main.run = false;
                         bmp = null;
