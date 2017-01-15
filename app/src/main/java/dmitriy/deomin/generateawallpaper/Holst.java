@@ -91,6 +91,7 @@ public class Holst extends View implements View.OnTouchListener {
     }
 
 
+
     private void help_risunok(Canvas canvas) {
         canvas.drawColor(Main.color_fon_main);
 
