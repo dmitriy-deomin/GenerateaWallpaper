@@ -17,6 +17,8 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextThemeWrapper;
 import android.view.Display;
 import android.view.KeyEvent;
@@ -46,6 +48,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main extends Activity {
 
@@ -118,7 +123,21 @@ public class Main extends Activity {
         run = save_read_bool("run");
         auto_oboi_crete = save_read_bool("auto_oboi_crete");
         auto_oboi_costrate = save_read_bool("auto_oboi_costrate");
-        Schema_rand_kartinki = save_read_int("Schema_rand_kartinki");
+
+
+        //при первом запуске сохранялки выбраной схемы нет поэтому поставим 2
+        if(Main.save_read("nomer_stroki")!=null){
+            if(!Main.save_read("nomer_stroki").equals("")) {
+                Schema_rand_kartinki = Integer.valueOf(save_read("nomer_stroki"));
+            }else {
+                save_value("nomer_stroki","1");
+                Schema_rand_kartinki = 1;
+            }
+        }else {
+            save_value("nomer_stroki","1");
+            Schema_rand_kartinki = 1;
+        }
+
         if (save_read_int("Time_dolbeshki_ekrana") == 0) {
             Time_dolbeshki_ekrana = 1000;
         } else {
@@ -414,95 +433,65 @@ public class Main extends Activity {
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
 
-
         //устанавливем цвет и загружаем настройки
         ((LinearLayout) content.findViewById(R.id.fon_shemy)).setBackgroundColor(color_fon_main);
 
-        Button sh0, sh1,sh2,sh777, sh_user;
+        //заполняем наш список с схемами
+        ListView  listView =(ListView)content.findViewById(R.id.listview_shemy);
 
-        sh0 = ((Button) content.findViewById(R.id.button_shema0));
-        sh1 = ((Button) content.findViewById(R.id.button_shema1));
-        sh2 = ((Button) content.findViewById(R.id.button_shema2));
-        sh777 = ((Button) content.findViewById(R.id.button_shema777));
-        sh_user = ((Button) content.findViewById(R.id.button_shema_user));
+        final String [] mas_shem=getResources().getStringArray(R.array.shemy);
+        final ArrayList<Map<String,Object>> data = new ArrayList<Map<String,Object>>(mas_shem.length);
 
+        Map<String,Object> m ;
 
-        sh0.setTypeface(face);
-        sh1.setTypeface(face);
-        sh2.setTypeface(face);
-        sh777.setTypeface(face);
-        sh_user.setTypeface(face);
-
-
-        switch (Schema_rand_kartinki) {
-            case 777:
-                sh777.setTextColor(Color.GREEN);
-                break;
-            case 0:
-                sh0.setTextColor(Color.GREEN);
-                break;
-            case 1:
-                sh1.setTextColor(Color.GREEN);
-                break;
-            case 2:
-                sh2.setTextColor(Color.GREEN);
-                break;
-            case 1000:
-                sh_user.setTextColor(Color.GREEN);
-                break;
+        for(int i = 0;i<mas_shem.length;i++){
+            m= new HashMap<String,Object>();
+            m.put("shema",(mas_shem[i]));
+            data.add(m);
         }
 
-        sh777.setOnClickListener(new View.OnClickListener() {
+        // массив имен атрибутов, из которых будут читаться данные
+        String[] from = { "shema" };
+        // массив ID View-компонентов, в которые будут вставлять данные
+        int[] to = { R.id.textView};
+
+        final Adapter_shem adapter_shem = new Adapter_shem(getApplicationContext(),data,R.layout.delegat_list,from,to);
+        listView.setAdapter(adapter_shem);
+        listView.setTextFilterEnabled(true);
+
+        ((EditText)content.findViewById(R.id.editText_shemy)).addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha);
-                v.startAnimation(anim);
-                Schema_rand_kartinki = 777;
-                save_value_int("Schema_rand_kartinki", 777);
-                alertDialog.cancel();
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // текст только что изменили
+                adapter_shem.getFilter().filter(s);
             }
-        });
-        sh0.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha);
-                v.startAnimation(anim);
-                Schema_rand_kartinki = 0;
-                save_value_int("Schema_rand_kartinki", 0);
-                alertDialog.cancel();
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // текст будет изменен
             }
-        });
-        sh2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha);
-                v.startAnimation(anim);
-                Schema_rand_kartinki = 2;
-                save_value_int("Schema_rand_kartinki", 2);
-                alertDialog.cancel();
-            }
-        });
-        sh1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha);
-                v.startAnimation(anim);
-                Schema_rand_kartinki = 1;
-                save_value_int("Schema_rand_kartinki", 1);
-                alertDialog.cancel();
-            }
-        });
-        sh_user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha);
-                v.startAnimation(anim);
-                Schema_rand_kartinki = 1000;
-                save_value_int("Schema_rand_kartinki", 1000);
-                alertDialog.cancel();
+            public void afterTextChanged(Editable s) {
+                // текст уже изменили
             }
         });
 
+        //пролистываем до нужного элемента
+        if(Main.save_read("nomer_stroki")!=null){
+            if(!Main.save_read("nomer_stroki").equals("")) {
+                listView.setSelection(Integer.valueOf(Main.save_read("nomer_stroki")));
+            }
+        }
+
+
+        //Обрабатываем щелчки на элементах ListView:
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                //сохраняем позицию
+                Main.save_value("nomer_stroki", String.valueOf(position));
+                Schema_rand_kartinki = position;
+                alertDialog.cancel();
+            }
+        });
 
     }
 

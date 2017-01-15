@@ -25,4 +25,18 @@
         <item>200x100</item>
         <item>300x100</item>
     </array>
+
+
+    <string-array name="shemy">
+        <item>1. Чистый фон</item>
+        <item>2. Круг,квадрат,линии</item>
+        <item>3. Много квадратов одинаковых(3 цвета)</item>
+        <item>4. Осколки</item>
+        <item>5. Много кругов 3-х видов</item>
+        <item>6. Много разных кругов и квадратов</item>
+    </string-array>
+
+
+
+
 </resources>

@@ -54,22 +54,29 @@ public class Holst extends View implements View.OnTouchListener {
         if (!Main.run) {
             //По какой схеме рисовать картинки
             switch (Main.Schema_rand_kartinki) {
-                //по умолчанию сохранялка кидает 0 поетому так запутано
                 case 0:
-                    //круг,квадрат,линии
+                    //чистый фон
                     shema0(canvas);
                     break;
                 case 1:
-                    //много квадратов
+                    //круг,квадрат,линии
                     shema1(canvas);
                     break;
                 case 2:
-                    //непонятно что
+                    //много квадратов одинаковых 3 цвета
                     shema2(canvas);
                     break;
-                case 777:
-                    //чистый фон
-                    shema777(canvas);
+                case 3:
+                    //осколки
+                    shema3(canvas);
+                    break;
+                case 4:
+                    //Много кругов 3-х видов
+                    shema4(canvas);
+                    break;
+                case 5:
+                    //много мелких кругов и квадратов разноцветных
+                    shema5(canvas);
                     break;
             }
         }
@@ -84,7 +91,45 @@ public class Holst extends View implements View.OnTouchListener {
     }
 
 
+    private void help_risunok(Canvas canvas) {
+        canvas.drawColor(Main.color_fon_main);
+
+        Paint shadowPaint = new Paint();
+
+        shadowPaint.setAntiAlias(true);
+        shadowPaint.setTextAlign(Paint.Align.CENTER);
+        shadowPaint.setColor(Color.WHITE);
+        shadowPaint.setTextSize(Main.wd / 10);
+        shadowPaint.setStrokeWidth(2.0f);
+        shadowPaint.setStyle(Paint.Style.STROKE);
+        shadowPaint.setShadowLayer(5.0f, 10.0f, 10.0f, Color.BLACK);
+
+        canvas.drawText(getContext().getString(R.string.Ustanovit), w / 2, 200, shadowPaint);
+        canvas.drawText(getContext().getString(R.string.Sgeneririvat), w / 2, h - 200, shadowPaint);
+
+        shadowPaint.setTextSize(Main.wd / 12);
+        canvas.drawText("Свайп с верху в низ", w / 2, h/2, shadowPaint);
+        canvas.drawText("покажет кнопки навигации", w / 2, h/2+60, shadowPaint);
+
+        shadowPaint.setTextSize(Main.wd / 25);
+        canvas.drawText("(долгое нажатие сохранит картинку)", w / 2, 250, shadowPaint);
+        canvas.drawText("(долгое нажатие запустит автомат тыкания)", w / 2, h - 150, shadowPaint);
+
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+    }
+
+    //чистый фон
     private void shema0(Canvas canvas) {
+        canvas.drawColor(random_color());
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+    }
+
+    //круг,квадрат,линии
+    private void shema1(Canvas canvas) {
         canvas.drawColor(random_color());
 
         kist.setAntiAlias(true);
@@ -109,7 +154,8 @@ public class Holst extends View implements View.OnTouchListener {
         canvas.drawBitmap(bmp, 0, 0, null);
     }
 
-    private void shema1(Canvas canvas) {
+    //много одинаковых квадратов
+    private void shema2(Canvas canvas) {
         canvas.drawColor(random_color());
 
         kist.setAntiAlias(true);
@@ -144,7 +190,8 @@ public class Holst extends View implements View.OnTouchListener {
         //------------------------------------
     }
 
-    private void shema2(Canvas canvas) {
+    //осколки
+    private void shema3(Canvas canvas) {
         canvas.drawColor(random_color());
 
         kist.setAntiAlias(true);
@@ -155,12 +202,11 @@ public class Holst extends View implements View.OnTouchListener {
         Path path = new Path();
 
         path.moveTo(random_nomer(0,w), random_nomer(0,w));
-        //много херни
+        //осколки
         for (int i = 0; i < random_nomer(0, 777); i++) {
             path.lineTo(random_nomer(0,w), random_nomer(0,h));
         }
         path.close();
-
 
         canvas.drawPath(path,kist);
 
@@ -173,41 +219,94 @@ public class Holst extends View implements View.OnTouchListener {
         //------------------------------------
     }
 
-    private void shema777(Canvas canvas) {
+    //Много кругов 3-х видов
+    private void shema4(Canvas canvas) {
         canvas.drawColor(random_color());
+
+        kist.setAntiAlias(true);
+        kist.setStrokeWidth(random_nomer(2, 100));
+        kist.setColor(random_color());
+
+
+        //много кругов
+        for (int i = 0; i < random_nomer(0, 777); i++) {
+            canvas.drawCircle(random_nomer(0, w), random_nomer(0, h), random_nomer(0, w/5), kist);
+        }
+
+        //еще много кругов
+        kist.setColor(random_color());
+        for (int i = 0; i < random_nomer(0, 777); i++) {
+            canvas.drawCircle(random_nomer(0, w), random_nomer(0, h), random_nomer(0, w/5), kist);
+        }
+
+
+        //и еще много кругов
+        kist.setColor(random_color());
+        for (int i = 0; i < random_nomer(0, 777); i++) {
+            canvas.drawCircle(random_nomer(0, w), random_nomer(0, h), random_nomer(0, w/5), kist);
+        }
+
+
+        //это херня обязательна
+        //--------------------
         buildDrawingCache();
         bmp = getDrawingCache();
         canvas.drawBitmap(bmp, 0, 0, null);
+        //------------------------------------
     }
 
-    private void help_risunok(Canvas canvas) {
-        canvas.drawColor(Main.color_fon_main);
+    //много мелких кругов и квадратов
+    private void shema5(Canvas canvas) {
+        canvas.drawColor(random_color());
 
-        Paint shadowPaint = new Paint();
+        kist.setAntiAlias(true);
+        kist.setStrokeWidth(random_nomer(2, 100));
+        kist.setColor(random_color());
 
-        shadowPaint.setAntiAlias(true);
-        shadowPaint.setTextAlign(Paint.Align.CENTER);
-        shadowPaint.setColor(Color.WHITE);
-        shadowPaint.setTextSize(Main.wd / 10);
-        shadowPaint.setStrokeWidth(2.0f);
-        shadowPaint.setStyle(Paint.Style.STROKE);
-        shadowPaint.setShadowLayer(5.0f, 10.0f, 10.0f, Color.BLACK);
 
-        canvas.drawText(getContext().getString(R.string.Ustanovit), w / 2, 200, shadowPaint);
-        canvas.drawText(getContext().getString(R.string.Sgeneririvat), w / 2, h - 200, shadowPaint);
+        //много кругов и много квадратов
+        for (int i = 0; i < random_nomer(0, 2000); i++) {
 
-        shadowPaint.setTextSize(Main.wd / 12);
-        canvas.drawText("Свайп с верху в низ", w / 2, h/2, shadowPaint);
-        canvas.drawText("покажет кнопки навигации", w / 2, h/2+60, shadowPaint);
+            kist.setColor(random_color());
+            canvas.drawCircle(random_nomer(0, w), random_nomer(0, h), random_nomer(0, w/8), kist);
 
-        shadowPaint.setTextSize(Main.wd / 25);
-        canvas.drawText("(долгое нажатие сохранит картинку)", w / 2, 250, shadowPaint);
-        canvas.drawText("(долгое нажатие запустит автомат тыкания)", w / 2, h - 150, shadowPaint);
+            kist.setColor(random_color());
+            //размер квадрата
+            int x = random_nomer(0, w);
+            int y = random_nomer(0, h);
+            int r = random_nomer(0, w/8);
+            canvas.drawRect(x,y,x+r,y+r,kist);
+        }
 
+
+
+        //это херня обязательна
+        //--------------------
         buildDrawingCache();
         bmp = getDrawingCache();
         canvas.drawBitmap(bmp, 0, 0, null);
+        //------------------------------------
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private int random_color() {
         int r = random_nomer(0, 255);
@@ -215,13 +314,10 @@ public class Holst extends View implements View.OnTouchListener {
         int b = random_nomer(0, 255);
         return Color.rgb(r, g, b);
     }
-
     private int random_nomer(int min, int max) {
         max -= min;
         return (int) (Math.random() * ++max) + min;
     }
-
-
     private void clik_view_avtomat(final Boolean run) {
 
         if (handler == null) {
@@ -253,7 +349,6 @@ public class Holst extends View implements View.OnTouchListener {
         }
 
     }
-
     private void save_imag_file(Boolean pokaz_toast, String url_img) {
 
         //создадим папки если нет
@@ -278,7 +373,6 @@ public class Holst extends View implements View.OnTouchListener {
         }
 
     }
-
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
