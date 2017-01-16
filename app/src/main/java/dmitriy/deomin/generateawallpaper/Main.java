@@ -2,30 +2,31 @@ package dmitriy.deomin.generateawallpaper;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.WallpaperManager;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
+import android.provider.Settings;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ContextThemeWrapper;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -37,25 +38,29 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Main extends Activity {
+public class Main extends FragmentActivity {
 
     private AdView mAdView;
     private final String vk_grupa = "https://vk.com/generateawallpaper";
+
+
+    //ДЛЯ картинок на главном экране
+    //------------------------------------
+    private ViewPager mPager;
+    private PagerAdapter mPagerAdapter;
+    private static final int NUM_PAGES = 5;
+    //--------------------------------
+
 
     //размеры экрана
     //--------------------
@@ -104,6 +109,7 @@ public class Main extends Activity {
         //---------------------------
 
 
+
         //размеры экрана
         //----------------------
         Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
@@ -119,6 +125,14 @@ public class Main extends Activity {
             hd = save_read_int("hd");
         }
         //----------------------
+
+        mPager = (ViewPager) findViewById(R.id.pager);
+        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        mPager.setAdapter(mPagerAdapter);
+
+
+
+
         //настройки загружаем
         run = save_read_bool("run");
         auto_oboi_crete = save_read_bool("auto_oboi_crete");
@@ -199,6 +213,23 @@ public class Main extends Activity {
 
 
 
+    }
+
+
+    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+        public ScreenSlidePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return new ScreenSlidePageFragment();
+        }
+
+        @Override
+        public int getCount() {
+            return NUM_PAGES;
+        }
     }
 
     public void Gen(View v) {
@@ -509,6 +540,16 @@ public class Main extends Activity {
 
         //устанавливем цвет фону и загружаем настройки
         ((LinearLayout)content.findViewById(R.id.info_loaut)).setBackgroundColor(color_fon_main);
+    }
+
+
+    //id
+    public String getUniqueID() {
+        String myAndroidDeviceId = "123456789";
+        myAndroidDeviceId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        //возьмём часть
+        myAndroidDeviceId = myAndroidDeviceId.substring(0, myAndroidDeviceId.length() / 3);
+        return myAndroidDeviceId;
     }
 
 }

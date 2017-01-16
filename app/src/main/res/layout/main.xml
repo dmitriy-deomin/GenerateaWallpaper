@@ -10,39 +10,27 @@
     android:keepScreenOn="true"
     tools:context="dmitriy.deomin.generateawallpaper.Main">
 
-    <TextView
-        android:id="@+id/name_i_versia"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:enabled="true"
-        android:foregroundGravity="center"
-        android:gravity="center"
-        android:text="Generate a wallpaper 0.1"
-        android:textColor="@android:color/black"
-        android:textSize="18sp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/vibrat_shemu"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginRight="10dp"
+        <TextView
+            android:id="@+id/name_i_versia"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:layout_weight="2"
-            android:background="@android:color/transparent"
-            android:onClick="Vibrat_shemu"
-            android:text="Выбрать схему рисования"
+            android:enabled="true"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:text="Generate a wallpaper 0.1"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/menu"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="20dp"
             android:layout_weight="0.1"
             android:background="@android:color/transparent"
             android:onClick="Menu"
@@ -50,6 +38,38 @@
             android:textColor="@android:color/black"
             android:textSize="14sp" />
     </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_moi_kartinki"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="0.1"
+            android:background="@android:color/transparent"
+            android:text="Мои картинки в телефоне"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/button_kartinki_v_seti"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="0.1"
+            android:background="@android:color/transparent"
+            android:text="Все картинки сети"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></android.support.v4.view.ViewPager>
 
     <Button
         android:id="@+id/open_random_oboi"
@@ -61,6 +81,16 @@
         android:text="Создать обои"
         android:textColor="@android:color/black"
         android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/vibrat_shemu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:onClick="Vibrat_shemu"
+        android:text="Выбрать схему рисования"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
