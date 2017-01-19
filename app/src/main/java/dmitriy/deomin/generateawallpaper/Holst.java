@@ -37,6 +37,10 @@ public class Holst extends View implements View.OnTouchListener {
     int w;
     int h;
 
+    //место где нажато было для генерации разных картинок
+    float pres_x=0;
+    float pres_y=0;
+
     public Holst(Context context) {
         super(context);
         setDrawingCacheEnabled(true);
@@ -77,6 +81,10 @@ public class Holst extends View implements View.OnTouchListener {
                 case 5:
                     //много мелких кругов и квадратов разноцветных
                     shema5(canvas);
+                    break;
+                case 6:
+                    //паралельные линии
+                    shema6(canvas);
                     break;
             }
         }
@@ -289,6 +297,41 @@ public class Holst extends View implements View.OnTouchListener {
         //------------------------------------
     }
 
+    //паралельные линии
+    private void shema6(Canvas canvas) {
+        canvas.drawColor(random_color());
+
+        kist.setAntiAlias(true);
+        kist.setStrokeWidth(random_nomer(2, 300));
+        kist.setColor(random_color());
+
+
+        //много линий
+        for (int i = 0; i < random_nomer(0, 2000); i++) {
+
+            kist.setColor(random_color());
+            kist.setStrokeWidth(random_nomer(2, 100));
+
+            //int x = random_nomer(Integer.valueOf((int) pres_x),w);
+            int x = random_nomer(0,w);
+            int y = random_nomer(0,h);
+
+
+            int dlina = random_nomer(0,h+w);
+
+
+            canvas.drawLine(x,y,x+dlina,y+dlina,kist);
+        }
+
+
+
+        //это херня обязательна
+        //--------------------
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+        //------------------------------------
+    }
 
 
 
@@ -430,6 +473,9 @@ public class Holst extends View implements View.OnTouchListener {
                     } else {
                         Main.run = false;
                         bmp = null;
+                        pres_x =event.getX();
+                        pres_y = event.getY();
+
                         destroyDrawingCache();
                         invalidate();
                     }

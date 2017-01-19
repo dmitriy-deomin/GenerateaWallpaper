@@ -1,6 +1,5 @@
 package dmitriy.deomin.generateawallpaper;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +12,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -21,6 +21,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
+import android.text.Spannable;
 import android.text.TextWatcher;
 import android.view.ContextThemeWrapper;
 import android.view.Display;
@@ -43,7 +44,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.squareup.picasso.Transformation;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,12 +57,20 @@ public class Main extends FragmentActivity {
     private AdView mAdView;
     private final String vk_grupa = "https://vk.com/generateawallpaper";
 
+    //для обводки картинок рамкой
+    public static Transformation transformation;
+
+
+    //для текста
+    public static Spannable text;
 
     //ДЛЯ картинок на главном экране
     //------------------------------------
-    private ViewPager mPager;
-    private PagerAdapter mPagerAdapter;
-    private static final int NUM_PAGES = 5;
+    public static ViewPager mPager;
+    public static PagerAdapter mPagerAdapter;
+    public static int NUM_PAGES; //количество картинок в нашей папке (столькоже будет страниц для просмотра)
+    public static File[] filesArray;
+    public static int img_vibrno=0;
     //--------------------------------
 
 
@@ -126,9 +138,28 @@ public class Main extends FragmentActivity {
         }
         //----------------------
 
+
+        //получаем список файлов из нашей папки
+         update_list_files();
+
+
+        //для обводки картинок рамкой
+        //------------------------------------------------------
+        transformation = new RoundedTransformationBuilder()
+                .borderColor(Color.BLACK)
+                .borderWidthDp(1)
+                .cornerRadiusDp(10)
+                .oval(false)
+                .build();
+        //------------------------------------------------------
+
+
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        mPager.setOffscreenPageLimit(0);
         mPager.setAdapter(mPagerAdapter);
+        //промотаем к самой свежей
+        mPager.setCurrentItem(NUM_PAGES);
 
 
 
@@ -174,7 +205,7 @@ public class Main extends FragmentActivity {
         text_logo.setText("Генератор обоев " + getVersion());
         //кнопки
         ((Button) findViewById(R.id.menu)).setTypeface(face);
-        ((Button) findViewById(R.id.open_random_oboi)).setTypeface(face);
+
         //----------------
         ((LinearLayout) findViewById(R.id.main)).setBackgroundColor(color_fon_main);
 
@@ -212,9 +243,60 @@ public class Main extends FragmentActivity {
 
 
 
+        //устанавливаем надпись на кнопе создать обои
+        shema();
 
     }
 
+
+    public void shema(){
+        final String [] mas_shem=getResources().getStringArray(R.array.shemy);
+        ((Button) findViewById(R.id.open_random_oboi)).setText("Создать обои"+"\n"+mas_shem[Schema_rand_kartinki]);
+    }
+
+    public static void update_list_files(){
+        //получаем список файлов из нашей папки
+        //--------------------------------------------------
+        //создадим папки если нет
+        File sddir = new File(Environment.getExternalStorageDirectory().toString() + "/Pictures/Generateawallpaper/");
+        if (!sddir.exists()) {
+            sddir.mkdirs();
+        }else{
+            //иначе посчитаем че там есть
+            filesArray = sddir.listFiles();
+            System.out.println("файлов: " + filesArray.length);
+
+            NUM_PAGES = filesArray.length;
+
+            for (File f: filesArray) {
+                if (f.isDirectory()) System.out.println("Folder: " + f);
+                else if (f.isFile()) System.out.println("File: " + f);
+            }
+        }
+        //-------------------------------------------------------------
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        update_list_files();
+        mPagerAdapter.notifyDataSetChanged();
+        //промотаем к самой свежей
+        mPager.setCurrentItem(NUM_PAGES);
+    }
+
+
+
+    public void Clik_moi_kartinki_lokalno(View v) {
+        Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha);
+        v.startAnimation(anim);
+    }
+
+    public void Clik_vse_kartinki_v_seti(View v) {
+        Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha);
+        v.startAnimation(anim);
+    }
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         public ScreenSlidePagerAdapter(FragmentManager fm) {
@@ -223,7 +305,11 @@ public class Main extends FragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return new ScreenSlidePageFragment();
+            ScreenSlidePageFragment page =  new ScreenSlidePageFragment();
+            Bundle args = new Bundle();
+            args.putInt("pic", position);
+            page.setArguments(args);
+            return page;
         }
 
         @Override
@@ -520,6 +606,7 @@ public class Main extends FragmentActivity {
                 //сохраняем позицию
                 Main.save_value("nomer_stroki", String.valueOf(position));
                 Schema_rand_kartinki = position;
+                shema();
                 alertDialog.cancel();
             }
         });

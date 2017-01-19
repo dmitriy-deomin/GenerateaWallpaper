@@ -51,8 +51,10 @@
             android:layout_height="40dp"
             android:layout_weight="0.1"
             android:background="@android:color/transparent"
+            android:onClick="Clik_moi_kartinki_lokalno"
             android:text="Мои картинки в телефоне"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/button_kartinki_v_seti"
@@ -60,8 +62,10 @@
             android:layout_height="40dp"
             android:layout_weight="0.1"
             android:background="@android:color/transparent"
+            android:onClick="Clik_vse_kartinki_v_seti"
             android:text="Все картинки сети"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -71,11 +75,10 @@
         android:layout_height="0dp"
         android:layout_weight="1"></android.support.v4.view.ViewPager>
 
-    <Button
+    <dmitriy.deomin.generateawallpaper.Buton_generirovat
         android:id="@+id/open_random_oboi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:background="@android:color/transparent"
         android:onClick="Gen"
         android:text="Создать обои"
@@ -88,7 +91,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:onClick="Vibrat_shemu"
-        android:text="Выбрать схему рисования"
+        android:text="Изменить схему рисования"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 
