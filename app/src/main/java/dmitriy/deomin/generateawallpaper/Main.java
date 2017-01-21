@@ -284,6 +284,8 @@ public class Main extends FragmentActivity {
         mPagerAdapter.notifyDataSetChanged();
         //промотаем к самой свежей
         mPager.setCurrentItem(NUM_PAGES);
+        //устанавливаем надпись на кнопе создать обои
+        shema();
     }
 
 

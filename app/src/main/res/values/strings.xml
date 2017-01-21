@@ -10,6 +10,8 @@
         created Deomin Dmitriy 2017\n\n
         lib:\n
         crop-https://github.com/biokys/cropimage
+        \n
+        image-picasso:2.5.2
         \n\n\n
         Картинка генерируется рандомно(случйно), каждая следующая уникальна
         \n\n
@@ -35,6 +37,10 @@
         <item>5. Много кругов 3-х видов</item>
         <item>6. Много разных кругов и квадратов</item>
         <item>7. Параллельные линии</item>
+        <item>8. Линии в разброс</item>
+        <item>9. Одноцветные круги по спирале Архимеда</item>
+        <item>10. Разные круги по спирале Архимеда</item>
+        <item>11. Cпираль Архимеда</item>
     </string-array>
 
 
