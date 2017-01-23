@@ -44,6 +44,8 @@ public class Holst extends View implements View.OnTouchListener {
     int w;
     int h;
 
+    String [] mas_pi;
+
     //место где нажато было для генерации разных картинок
     float pres_x = 0;
     float pres_y = 0;
@@ -54,6 +56,8 @@ public class Holst extends View implements View.OnTouchListener {
         setFocusable(true);
         //слушаем нажатия
         setOnTouchListener(this);
+        //сделаем массив сразу
+        mas_pi = getResources().getString(R.string.pi).split("(?<=\\G.{1})");
     }
 
     @Override
@@ -108,6 +112,18 @@ public class Holst extends View implements View.OnTouchListener {
                 case 10:
                     //Cпираль Архимеда
                     shema10(canvas);
+                    break;
+                case 11:
+                    //Одноцветные квадраты по спирале Архимеда
+                    shema11(canvas);
+                    break;
+                case 12:
+                    //Разноцветные круг в круге
+                    shema12(canvas);
+                    break;
+                case 13:
+                    //Разноцветные круг в круге
+                    shema13(canvas);
                     break;
             }
         }
@@ -534,6 +550,112 @@ public class Holst extends View implements View.OnTouchListener {
         bmp = getDrawingCache();
         canvas.drawBitmap(bmp, 0, 0, null);
         //------------------------------------
+    }
+
+    //Одноцветные квадраты по спирале Архимеда
+    private void shema11(Canvas canvas) {
+        canvas.drawColor(random_color());
+
+        kist.setAntiAlias(true);
+        //размер кисти
+        kist.setStrokeWidth(random_nomer(1, 100));
+        kist.setColor(random_color());
+
+        rand_on_of_kist_sglagivanie();
+        rand_on_of_zalivka();
+
+
+        int phi, r, k, spase, razmer_tochek;
+
+        //растояние между витками
+        k = 1;
+        //растояние между точек
+        spase = 1;
+
+        for (int i = 0; i != h; ++i) {
+            phi = i * spase;
+            r = k * i;
+            double x = r * cos(phi);
+            double y = r * sin(phi);
+            canvas.drawPoint((int) x + w / 2, h / 2 - (int) y, kist);
+        }
+
+        //это херня обязательна
+        //--------------------
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+        //------------------------------------
+    }
+
+    //Разноцветные круг в круге
+    private void shema12(Canvas canvas) {
+
+        canvas.drawColor(random_color());
+        kist.setAntiAlias(true);
+        //размер кисти
+        kist.setStrokeWidth(1);
+        kist.setColor(random_color());
+        kist.setStyle(Paint.Style.STROKE);
+
+
+        //начальные координаты
+        int xn = w/2;
+        int yn = h/2;
+
+
+        for(int i=1;i!=w;i++){
+            kist.setColor(random_color());
+            canvas.drawCircle(xn,yn,i,kist);
+        }
+
+
+
+
+
+        //это херня обязательна
+        //--------------------
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+        //-------------------------------------
+    }
+
+    //Число пи
+    private void shema13(Canvas canvas) {
+
+        canvas.drawColor(random_color());
+        kist.setAntiAlias(true);
+        //размер кисти
+        kist.setStrokeWidth(1);
+        kist.setColor(random_color());
+        kist.setStyle(Paint.Style.STROKE);
+
+
+
+
+        for(int i=0;i!=mas_pi.length;i++){
+
+            kist.setTextSize(random_nomer(100,200));
+
+            int xn = random_nomer(0,w);
+            int yn = random_nomer(0,h);
+
+            kist.setColor(random_color());
+
+            canvas.drawText(mas_pi[i].toString(),xn,yn,kist);
+        }
+
+
+
+
+
+        //это херня обязательна
+        //--------------------
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+        //-------------------------------------
     }
 
 //////

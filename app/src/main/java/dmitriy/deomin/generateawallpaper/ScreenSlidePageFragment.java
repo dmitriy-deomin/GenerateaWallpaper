@@ -77,8 +77,28 @@ public class ScreenSlidePageFragment extends Fragment {
                 final AlertDialog alertDialog = builder.create();
                 alertDialog.show();
 
+
+                //размер картинки
+                //--------------------------------
+                String size_file = "";
+                double size_file_bit = (int) Main.filesArray[pic].length();
+                size_file_bit = size_file_bit/1024; // kb
+
+                if(size_file_bit>1024){
+                    size_file_bit = size_file_bit/1024; // mb
+                    //костыль для уменьшения символов после запятой
+                    size_file_bit = round(size_file_bit,1);
+                    size_file = String.valueOf(size_file_bit)+" mb";
+                }else{
+                    //костыль для уменьшения символов после запятой
+                    size_file_bit = round(size_file_bit,1);
+                    size_file = String.valueOf(size_file_bit)+" kb";
+                }
+                //--------------------------------------------
+
+
                 ((TextView)content.findViewById(R.id.textView_name_pic)).setText(Main.filesArray[pic].getName());
-                ((TextView)content.findViewById(R.id.textView_ves_pic)).setText(String.valueOf(Main.filesArray[pic].length()/1024)+"kb");
+                ((TextView)content.findViewById(R.id.textView_ves_pic)).setText(size_file);
 
                 //устанавливем цвет и загружаем настройки
                 ((LinearLayout) content.findViewById(R.id.fon_menu)).setBackgroundColor(color_fon_main);
@@ -176,6 +196,16 @@ public class ScreenSlidePageFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+
+    //уменьшает количество символов после заятой
+    private double round(double number, int scale) {
+        int pow = 10;
+        for (int i = 1; i < scale; i++)
+            pow *= 10;
+        double tmp = number * pow;
+        return (double) (int) ((tmp - (int) tmp) >= 0.5 ? tmp + 1 : tmp) / pow;
     }
 
 

@@ -280,8 +280,12 @@ public class Main extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //обновим список файлов
         update_list_files();
+        //обновим адаптер
         mPagerAdapter.notifyDataSetChanged();
+        //перезальём адаптер в пежер
+        mPager.setAdapter(Main.mPagerAdapter);
         //промотаем к самой свежей
         mPager.setCurrentItem(NUM_PAGES);
         //устанавливаем надпись на кнопе создать обои
