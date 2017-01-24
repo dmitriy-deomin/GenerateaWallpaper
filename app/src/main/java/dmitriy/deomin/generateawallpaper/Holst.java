@@ -44,7 +44,7 @@ public class Holst extends View implements View.OnTouchListener {
     int w;
     int h;
 
-    String [] mas_pi;
+   // String [] mas_pi;
 
     //место где нажато было для генерации разных картинок
     float pres_x = 0;
@@ -57,7 +57,7 @@ public class Holst extends View implements View.OnTouchListener {
         //слушаем нажатия
         setOnTouchListener(this);
         //сделаем массив сразу
-        mas_pi = getResources().getString(R.string.pi).split("(?<=\\G.{1})");
+       // mas_pi = getResources().getString(R.string.pi).split("(?<=\\G.{1})");
     }
 
     @Override
@@ -122,7 +122,7 @@ public class Holst extends View implements View.OnTouchListener {
                     shema12(canvas);
                     break;
                 case 13:
-                    //Разноцветные круг в круге
+                    //Числа в разброс
                     shema13(canvas);
                     break;
             }
@@ -596,7 +596,7 @@ public class Holst extends View implements View.OnTouchListener {
         //размер кисти
         kist.setStrokeWidth(1);
         kist.setColor(random_color());
-        kist.setStyle(Paint.Style.STROKE);
+        kist.setStyle(Paint.Style.FILL);
 
 
         //начальные координаты
@@ -604,9 +604,24 @@ public class Holst extends View implements View.OnTouchListener {
         int yn = h/2;
 
 
-        for(int i=1;i!=w;i++){
-            kist.setColor(random_color());
-            canvas.drawCircle(xn,yn,i,kist);
+
+        for(int i=w;i!=0;i--){
+
+
+            //сначала большой круг нарисуем, потом рандомно будем вставлять в него разные
+            if(i==w){
+                canvas.drawCircle(xn,yn,i,kist);
+            }else{
+                //радиус будем брать случайный , максимальный будет предыдущий -1
+
+                int radius = random_nomer(1,i-1);
+                i=radius;
+                kist.setColor(random_color());
+                canvas.drawCircle(xn,yn,radius,kist);
+
+            }
+
+
         }
 
 
@@ -621,7 +636,7 @@ public class Holst extends View implements View.OnTouchListener {
         //-------------------------------------
     }
 
-    //Число пи
+    //Числа в разброс
     private void shema13(Canvas canvas) {
 
         canvas.drawColor(random_color());
@@ -633,17 +648,24 @@ public class Holst extends View implements View.OnTouchListener {
 
 
 
+        int count_number = random_nomer(10,w/2);
 
-        for(int i=0;i!=mas_pi.length;i++){
+        String [] mas_num ={"0","1","2","3","4","5","6","7","8","9"};
+
+
+        for(int i=0;i!=count_number;i++){
 
             kist.setTextSize(random_nomer(100,200));
 
             int xn = random_nomer(0,w);
             int yn = random_nomer(0,h);
+            int number = random_nomer(0,9);
 
             kist.setColor(random_color());
 
-            canvas.drawText(mas_pi[i].toString(),xn,yn,kist);
+
+
+            canvas.drawText(mas_num[number],xn,yn,kist);
         }
 
 
