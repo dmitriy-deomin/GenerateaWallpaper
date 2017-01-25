@@ -44,7 +44,7 @@ public class Holst extends View implements View.OnTouchListener {
     int w;
     int h;
 
-   // String [] mas_pi;
+    // String [] mas_pi;
 
     //место где нажато было для генерации разных картинок
     float pres_x = 0;
@@ -57,7 +57,7 @@ public class Holst extends View implements View.OnTouchListener {
         //слушаем нажатия
         setOnTouchListener(this);
         //сделаем массив сразу
-       // mas_pi = getResources().getString(R.string.pi).split("(?<=\\G.{1})");
+        // mas_pi = getResources().getString(R.string.pi).split("(?<=\\G.{1})");
     }
 
     @Override
@@ -124,6 +124,10 @@ public class Holst extends View implements View.OnTouchListener {
                 case 13:
                     //Числа в разброс
                     shema13(canvas);
+                    break;
+                case 14:
+                    //Буквы(а-я) в разброс
+                    shema14(canvas);
                     break;
             }
         }
@@ -513,17 +517,16 @@ public class Holst extends View implements View.OnTouchListener {
         kist.setStyle(Paint.Style.STROKE);
 
 
-
         int phi, r, k, spase, razmer_tochek;
 
         //растояние между витками
-        k = random_nomer(3,10);
+        k = random_nomer(3, 10);
         //растояние между точек
-        spase = random_nomer(20,70);
+        spase = random_nomer(20, 70);
 
         Path curve = new Path();
 
-        curve.moveTo(w/2, h/2);
+        curve.moveTo(w / 2, h / 2);
 
         for (int i = 1; i != w; ++i) {
             phi = i * spase;
@@ -533,7 +536,7 @@ public class Holst extends View implements View.OnTouchListener {
 
             curve.lineTo((int) x + w / 2, h / 2 - (int) y);
         }
-       // curve.close();
+        // curve.close();
 
 
         //сглаживание краёв
@@ -542,7 +545,7 @@ public class Holst extends View implements View.OnTouchListener {
         kist.setPathEffect(mCornerPathEffect);
 
 
-        canvas.drawPath(curve,kist);
+        canvas.drawPath(curve, kist);
 
         //это херня обязательна
         //--------------------
@@ -600,32 +603,28 @@ public class Holst extends View implements View.OnTouchListener {
 
 
         //начальные координаты
-        int xn = w/2;
-        int yn = h/2;
+        int xn = w / 2;
+        int yn = h / 2;
 
 
-
-        for(int i=w;i!=0;i--){
+        for (int i = w; i != 0; i--) {
 
 
             //сначала большой круг нарисуем, потом рандомно будем вставлять в него разные
-            if(i==w){
-                canvas.drawCircle(xn,yn,i,kist);
-            }else{
+            if (i == w) {
+                canvas.drawCircle(xn, yn, i, kist);
+            } else {
                 //радиус будем брать случайный , максимальный будет предыдущий -1
 
-                int radius = random_nomer(1,i-1);
-                i=radius;
+                int radius = random_nomer(1, i - 1);
+                i = radius;
                 kist.setColor(random_color());
-                canvas.drawCircle(xn,yn,radius,kist);
+                canvas.drawCircle(xn, yn, radius, kist);
 
             }
 
 
         }
-
-
-
 
 
         //это херня обязательна
@@ -647,38 +646,66 @@ public class Holst extends View implements View.OnTouchListener {
         kist.setStyle(Paint.Style.STROKE);
 
 
+        int count_number = random_nomer(10, w / 2);
 
-        int count_number = random_nomer(10,w/2);
-
-        String [] mas_num ={"0","1","2","3","4","5","6","7","8","9"};
+        String[] mas_num = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
 
-        for(int i=0;i!=count_number;i++){
+        for (int i = 0; i != count_number; i++) {
 
-            kist.setTextSize(random_nomer(100,200));
+            kist.setTextSize(random_nomer(100, 200));
 
-            int xn = random_nomer(0,w);
-            int yn = random_nomer(0,h);
-            int number = random_nomer(0,9);
+            int xn = random_nomer(0, w);
+            int yn = random_nomer(0, h);
+            int number = random_nomer(0, 9);
 
             kist.setColor(random_color());
 
 
-
-            canvas.drawText(mas_num[number],xn,yn,kist);
+            canvas.drawText(mas_num[number], xn, yn, kist);
         }
 
-
-
-
-
-        //это херня обязательна
-        //--------------------
-        buildDrawingCache();
-        bmp = getDrawingCache();
-        canvas.drawBitmap(bmp, 0, 0, null);
-        //-------------------------------------
     }
+
+    //Буквы(а-я) в разброс
+    private void shema14(Canvas canvas) {
+
+        canvas.drawColor(random_color());
+        kist.setAntiAlias(true);
+        //размер кисти
+        kist.setStrokeWidth(1);
+        kist.setColor(random_color());
+
+        //прозрачночть будет случайная
+        rand_on_of_zalivka();
+
+
+
+        int count_number = random_nomer(10, w / 2);
+
+        String[] mas_num = {"а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и"
+        ,"й","к","л","м","н","о","п","р","с","т","у","ф","ц","ч","ш","щ","ъ","ы","ь","э","ю","я"};
+
+
+        for (int i = 0; i != count_number; i++) {
+
+            kist.setTextSize(random_nomer(100, 200));
+
+            int xn = random_nomer(0, w);
+            int yn = random_nomer(0, h);
+            int number = random_nomer(0, 9);
+
+            kist.setColor(random_color());
+
+
+            canvas.drawText(mas_num[number], xn, yn, kist);
+        }
+
+    }
+
+
+
+
 
 //////
     /////
@@ -853,9 +880,23 @@ public class Holst extends View implements View.OnTouchListener {
                             if(Main.Schema_rand_kartinki>0) {
                                 Main.Schema_rand_kartinki--;
                                 Main.save_value("nomer_stroki",String.valueOf(Main.Schema_rand_kartinki));
-                                Toast.makeText(getContext(), mas_shem[Main.Schema_rand_kartinki], Toast.LENGTH_SHORT).show();
+
+                                //обновим картинку
+                                //**********************
+                                Main.run = false;
+                                bmp = null;
+                                pres_x = event.getX();
+                                pres_y = event.getY();
+                                destroyDrawingCache();
+                                invalidate();
+                                //*************************
+                                //запустим анимацию
+                                Main.Run_anim_view(this.getRootView(),24);
+                               // Toast.makeText(getContext(), mas_shem[Main.Schema_rand_kartinki], Toast.LENGTH_SHORT).show();
                             }else {
                                 Toast.makeText(getContext(), "Первая", Toast.LENGTH_SHORT).show();
+                                //запустим анимацию
+                                Main.Run_anim_view(this.getRootView(),3);
                             }
                         } else if (mesto_clik_x-100 > event.getX()) {
                               //право
@@ -863,8 +904,22 @@ public class Holst extends View implements View.OnTouchListener {
                             if(Main.Schema_rand_kartinki<mas_shem.length-1) {
                                 Main.Schema_rand_kartinki++;
                                 Main.save_value("nomer_stroki",String.valueOf(Main.Schema_rand_kartinki));
-                                Toast.makeText(getContext(), mas_shem[Main.Schema_rand_kartinki], Toast.LENGTH_SHORT).show();
+
+                                //обновим картинку
+                                //**********************
+                                Main.run = false;
+                                bmp = null;
+                                pres_x = event.getX();
+                                pres_y = event.getY();
+                                destroyDrawingCache();
+                                invalidate();
+                                //*************************
+                                //запустим анимацию
+                                Main.Run_anim_view(this.getRootView(),25);
+                               // Toast.makeText(getContext(), mas_shem[Main.Schema_rand_kartinki], Toast.LENGTH_SHORT).show();
                             }else {
+                                //запустим анимацию
+                                Main.Run_anim_view(this.getRootView(),3);
                                 Toast.makeText(getContext(), "Последняя", Toast.LENGTH_SHORT).show();
                             }
 
@@ -878,6 +933,9 @@ public class Holst extends View implements View.OnTouchListener {
 
                             destroyDrawingCache();
                             invalidate();
+
+                            //запустим анимацию
+                            Main.Run_anim_view(this.getRootView(),52);
                         }
 
                     }
