@@ -118,7 +118,7 @@ public class Holst extends View implements View.OnTouchListener {
                     shema11(canvas);
                     break;
                 case 12:
-                    //Разноцветные круг в круге
+                    //Разноцветные круг в круге разноразмерные
                     shema12(canvas);
                     break;
                 case 13:
@@ -128,6 +128,14 @@ public class Holst extends View implements View.OnTouchListener {
                 case 14:
                     //Буквы(а-я) в разброс
                     shema14(canvas);
+                    break;
+                case 15:
+                    //Разноцветные круг в круге
+                    shema15(canvas);
+                    break;
+                case 16:
+                    //сетка
+                    shema16(canvas);
                     break;
             }
         }
@@ -591,7 +599,7 @@ public class Holst extends View implements View.OnTouchListener {
         //------------------------------------
     }
 
-    //Разноцветные круг в круге
+    //Разноцветные круг в круге разноразмерные
     private void shema12(Canvas canvas) {
 
         canvas.drawColor(random_color());
@@ -701,6 +709,64 @@ public class Holst extends View implements View.OnTouchListener {
             canvas.drawText(mas_num[number], xn, yn, kist);
         }
 
+    }
+
+    //Разноцветные круг в круге
+    private void shema15(Canvas canvas) {
+
+        canvas.drawColor(random_color());
+        kist.setAntiAlias(true);
+        //размер кисти
+        kist.setStrokeWidth(10);
+        kist.setColor(random_color());
+        kist.setStyle(Paint.Style.STROKE);
+
+
+        //начальные координаты
+        int xn = w / 2;
+        int yn = h / 2;
+
+
+        for (int i = 0; i != w; i=i+2) {
+            kist.setColor(random_color());
+            canvas.drawCircle(xn, yn,i, kist);
+        }
+
+
+        //это херня обязательна
+        //--------------------
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+        //-------------------------------------
+    }
+
+    //сетка
+    private void shema16(Canvas canvas) {
+
+        canvas.drawColor(random_color());
+        kist.setAntiAlias(true);
+        kist.setColor(random_color());
+
+        rand_on_of_zalivka();
+        rand_on_of_kist_sglagivanie();
+
+        int step = random_nomer(10,60);
+        kist.setStrokeWidth(random_nomer(5,step));
+
+        for (int i = 0; i <= h;i=i+step) {
+            for(int r =0;r<=w;r=r+step){
+
+                canvas.drawPoint(r,i, kist);
+            }
+        }
+
+        //это херня обязательна
+        //--------------------
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+        //-------------------------------------
     }
 
 
