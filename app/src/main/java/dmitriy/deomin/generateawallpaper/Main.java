@@ -22,7 +22,11 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.UnderlineSpan;
 import android.view.ContextThemeWrapper;
 import android.view.Display;
 import android.view.KeyEvent;
@@ -250,6 +254,21 @@ public class Main extends FragmentActivity {
         //устанавливаем надпись на кнопе создать обои
         shema();
 
+    }
+
+    Spannable format_text(String value){
+//******************************************
+//форматирование текста
+        Spannable text = new SpannableString(value);
+
+//UnderlineSpan() - подчеркнутый текст
+//StyleSpan(Typeface.BOLD) - полужирный тектс
+//StyleSpan(Typeface.ITALIC) - курсив
+//ForegroundColorSpan(Color.GREEN) - цвет
+//text.setSpan(new UnderlineSpan(), 0, 32, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        text.setSpan(new ForegroundColorSpan(Color.BLUE), text.length()-1, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//****************************************************
+        return text;
     }
 
 
