@@ -11,10 +11,12 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="введите для поиска"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:paddingTop="20dp" />
 
     <ListView
         android:id="@+id/listview_shemy"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:paddingBottom="5dp" />
 </LinearLayout>

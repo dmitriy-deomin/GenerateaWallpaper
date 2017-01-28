@@ -6,16 +6,14 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.CornerPathEffect;
-import android.graphics.DashPathEffect;
-import android.graphics.Matrix;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Rect;
-import android.graphics.RectF;
+import android.graphics.RadialGradient;
+import android.graphics.Shader;
+import android.graphics.SweepGradient;
 import android.os.Environment;
 import android.os.Handler;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -24,6 +22,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
@@ -137,6 +137,18 @@ public class Holst extends View implements View.OnTouchListener {
                     //сетка
                     shema16(canvas);
                     break;
+                case 17:
+                    //Линейный градиент
+                    shema17(canvas);
+                    break;
+                case 18:
+                    //Круговой градиент
+                    shema18(canvas);
+                    break;
+                case 19:
+                    //Радужный градиент
+                    shema19(canvas);
+                    break;
             }
         }
 
@@ -158,6 +170,7 @@ public class Holst extends View implements View.OnTouchListener {
 
 
     private void help_risunok(Canvas canvas) {
+
         canvas.drawColor(Main.color_fon_main);
 
         Paint shadowPaint = new Paint();
@@ -190,7 +203,10 @@ public class Holst extends View implements View.OnTouchListener {
 
     //чистый фон
     private void shema0(Canvas canvas) {
+        kist.setAntiAlias(true);
+        //будем случайно просто цветом заливать
         canvas.drawColor(random_color());
+
         buildDrawingCache();
         bmp = getDrawingCache();
         canvas.drawBitmap(bmp, 0, 0, null);
@@ -654,18 +670,21 @@ public class Holst extends View implements View.OnTouchListener {
         kist.setStyle(Paint.Style.STROKE);
 
 
-        int count_number = random_nomer(10, w / 2);
 
-        String[] mas_num = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
+        String[] mas_num = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+                "/","*","-","+","=","~","#","%","№",
+                "y = x2","y = kx","y = kx + b","y = xn","y = k/x","y = sinx","y = cosx","cos(5*x+10)"};
+
+        int count_number = random_nomer(mas_num.length, w / 20);
 
         for (int i = 0; i != count_number; i++) {
 
-            kist.setTextSize(random_nomer(100, 200));
+            kist.setTextSize(random_nomer(w/100, w/10));
 
             int xn = random_nomer(0, w);
             int yn = random_nomer(0, h);
-            int number = random_nomer(0, 9);
+            int number = random_nomer(0, mas_num.length-1);
 
             kist.setColor(random_color());
 
@@ -689,10 +708,11 @@ public class Holst extends View implements View.OnTouchListener {
 
 
 
-        int count_number = random_nomer(10, w / 2);
+        int count_number = random_nomer(10, w / 20);
 
-        String[] mas_num = {"а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и"
-        ,"й","к","л","м","н","о","п","р","с","т","у","ф","ц","ч","ш","щ","ъ","ы","ь","э","ю","я"};
+        String[] mas_num = {"А","а", "Б","б", "В","в", "Г","г", "Д","д","Е", "е","Ё", "ё","Ж", "ж","З", "з","И", "и"
+        ,"Й","й","К","к","Л","л","М","м","Н","н","О","о","П","п","Р","р","С","с","Т","т","У","у","Ф","ф","Ц","ц","Ч","ч","Ш","ш"
+                ,"Щ","щ","Ъ","ъ","Ы","ы","Ь","ь","Э","э","Ю","ю","Я","я"};
 
 
         for (int i = 0; i != count_number; i++) {
@@ -727,7 +747,7 @@ public class Holst extends View implements View.OnTouchListener {
         int yn = h / 2;
 
 
-        for (int i = 0; i != w; i=i+2) {
+        for (int i = 0; i != w; i=i+10) {
             kist.setColor(random_color());
             canvas.drawCircle(xn, yn,i, kist);
         }
@@ -769,7 +789,62 @@ public class Holst extends View implements View.OnTouchListener {
         //-------------------------------------
     }
 
+    //Линейный градиент
+    private void shema17(Canvas canvas) {
 
+        //градиент линейный
+        kist.setStyle(Paint.Style.FILL);
+         kist.setShader(random_liner_gradient());
+         canvas.drawRect(0,0,w,h,kist);
+
+        //выключаем градиент
+        kist.setShader(null);
+
+        //это херня обязательна
+        //--------------------
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+        //-------------------------------------
+    }
+
+    //Круговой градиент
+    private void shema18(Canvas canvas) {
+
+        //Круговой градиент
+        kist.setStyle(Paint.Style.FILL);
+         kist.setShader(random_radial_gradient());
+        canvas.drawRect(0,0,w,h,kist);
+
+        //выключаем градиент
+        kist.setShader(null);
+
+        //это херня обязательна
+        //--------------------
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+        //-------------------------------------
+    }
+
+    //Радужный градиент
+    private void shema19(Canvas canvas) {
+
+        //Радужный градиент
+        kist.setStyle(Paint.Style.FILL);
+        kist.setShader(random_sweep_gradient());
+        canvas.drawRect(0,0,w,h,kist);
+
+        //выключаем градиент
+        kist.setShader(null);
+
+        //это херня обязательна
+        //--------------------
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+        //-------------------------------------
+    }
 
 
 
@@ -810,6 +885,69 @@ public class Holst extends View implements View.OnTouchListener {
         int b = random_nomer(0, 255);
         return Color.rgb(r, g, b);
     }
+
+    private Shader random_liner_gradient(){
+
+        int count_color = random_nomer(2,15);
+
+        int[] mas_color = new int[count_color];
+
+        for(int i=0;i<count_color;i++){
+            mas_color[i] = random_color();
+        }
+
+
+        LinearGradient linearGradient = new LinearGradient(
+                random_nomer(0,w),random_nomer(0,h),
+                100,20,
+                mas_color,
+                null,
+                Shader.TileMode.MIRROR);
+
+        return  linearGradient;
+    }
+
+    private Shader random_radial_gradient(){
+
+        int count_color = random_nomer(2,15);
+
+        int[] mas_color = new int[count_color];
+
+        for(int i=0;i<count_color;i++){
+            mas_color[i] = random_color();
+        }
+
+
+        RadialGradient radialGradient = new RadialGradient(
+                random_nomer(0,w),random_nomer(0,h),
+                random_nomer(1,w/2),
+                mas_color,
+                null,
+                Shader.TileMode.MIRROR);
+
+        return  radialGradient;
+    }
+
+    private Shader random_sweep_gradient(){
+
+        int count_color = random_nomer(2,15);
+
+        int[] mas_color = new int[count_color];
+
+        for(int i=0;i<count_color;i++){
+            mas_color[i] = random_color();
+        }
+
+
+        SweepGradient sweepGradient = new SweepGradient(
+                w/2,h/2,
+                mas_color,
+                null);
+
+        return  sweepGradient;
+    }
+
+
 
     private int random_nomer(int min, int max) {
         max -= min;
