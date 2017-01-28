@@ -14,8 +14,6 @@
         image-com.squareup.picasso:picasso:2.5.2
          \n
         com.makeramen:roundedimageview:2.2.1
-        \n
-        anim-com.daimajia.androidanimations:library:1.1.3@aar
         \n\n\n
         Картинка генерируется рандомно(случйно), каждая следующая уникальна
         \n\n

@@ -16,6 +16,8 @@ import android.os.Environment;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import java.io.File;
@@ -287,7 +289,7 @@ public class Holst extends View implements View.OnTouchListener {
         kist.setColor(random_color());
 
 
-        rand_on_of_kist_sglagivanie();
+        kist.setPathEffect(null);
         rand_on_of_zalivka();
 
         Path path = new Path();
@@ -461,7 +463,7 @@ public class Holst extends View implements View.OnTouchListener {
 
         kist.setAntiAlias(true);
         //размер кисти
-        kist.setStrokeWidth(random_nomer(1, 50));
+        kist.setStrokeWidth(random_nomer(1, 25));
         kist.setColor(random_color());
 
         rand_on_of_kist_sglagivanie();
@@ -474,7 +476,7 @@ public class Holst extends View implements View.OnTouchListener {
         k = 1;
         //растояние между точек
         spase = 1;
-        razmer_tochek = random_nomer(1, 50);
+        razmer_tochek = random_nomer(1, 30);
 
         for (int i = 0; i != h; ++i) {
             phi = i * spase;
@@ -585,21 +587,21 @@ public class Holst extends View implements View.OnTouchListener {
 
         kist.setAntiAlias(true);
         //размер кисти
-        kist.setStrokeWidth(random_nomer(1, 100));
+        kist.setStrokeWidth(random_nomer(1, 60));
         kist.setColor(random_color());
 
         rand_on_of_kist_sglagivanie();
         rand_on_of_zalivka();
 
 
-        int phi, r, k, spase, razmer_tochek;
+        int phi, r, k, spase;
 
         //растояние между витками
         k = 1;
         //растояние между точек
         spase = 1;
 
-        for (int i = 0; i != h; ++i) {
+        for (int i = 0; i <= h; ++i) {
             phi = i * spase;
             r = k * i;
             double x = r * cos(phi);
@@ -678,7 +680,7 @@ public class Holst extends View implements View.OnTouchListener {
 
         int count_number = random_nomer(mas_num.length, w / 20);
 
-        for (int i = 0; i != count_number; i++) {
+        for (int i = 0; i < count_number; i++) {
 
             kist.setTextSize(random_nomer(w/100, w/10));
 
@@ -691,6 +693,16 @@ public class Holst extends View implements View.OnTouchListener {
 
             canvas.drawText(mas_num[number], xn, yn, kist);
         }
+
+
+
+        //это херня обязательна
+        //--------------------
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+        //-------------------------------------
+
 
     }
 
@@ -729,6 +741,15 @@ public class Holst extends View implements View.OnTouchListener {
             canvas.drawText(mas_num[number], xn, yn, kist);
         }
 
+
+
+        //это херня обязательна
+        //--------------------
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+        //-------------------------------------
+
     }
 
     //Разноцветные круг в круге
@@ -747,7 +768,7 @@ public class Holst extends View implements View.OnTouchListener {
         int yn = h / 2;
 
 
-        for (int i = 0; i != w; i=i+10) {
+        for (int i = 0; i < w; i=i+10) {
             kist.setColor(random_color());
             canvas.drawCircle(xn, yn,i, kist);
         }
@@ -1094,13 +1115,21 @@ public class Holst extends View implements View.OnTouchListener {
                                 destroyDrawingCache();
                                 invalidate();
                                 //*************************
-                                //запустим анимацию
-                                Main.Run_anim_view(this.getRootView(),24);
-                               // Toast.makeText(getContext(), mas_shem[Main.Schema_rand_kartinki], Toast.LENGTH_SHORT).show();
+
+                                //запустим анимацию если включено
+                                if(Main.ANIMACIA_RUN) {
+                                    Animation anim_clik = AnimationUtils.loadAnimation(getContext(), R.anim.anim_levo);
+                                    v.startAnimation(anim_clik);
+                                }
+
+
                             }else {
                                 Toast.makeText(getContext(), "Первая", Toast.LENGTH_SHORT).show();
-                                //запустим анимацию
-                                Main.Run_anim_view(this.getRootView(),3);
+                                //запустим анимацию если включено
+                                if(Main.ANIMACIA_RUN) {
+                                    Animation anim_clik = AnimationUtils.loadAnimation(getContext(), R.anim.myalpha);
+                                    v.startAnimation(anim_clik);
+                                }
                             }
                         } else if (mesto_clik_x-100 > event.getX()) {
                               //право
@@ -1118,13 +1147,20 @@ public class Holst extends View implements View.OnTouchListener {
                                 destroyDrawingCache();
                                 invalidate();
                                 //*************************
-                                //запустим анимацию
-                                Main.Run_anim_view(this.getRootView(),25);
-                               // Toast.makeText(getContext(), mas_shem[Main.Schema_rand_kartinki], Toast.LENGTH_SHORT).show();
+                                //запустим анимацию если включено
+                                if(Main.ANIMACIA_RUN) {
+                                    Animation anim_l = AnimationUtils.loadAnimation(getContext(), R.anim.anim_pravo);
+                                    v.startAnimation(anim_l);
+                                }
+
                             }else {
-                                //запустим анимацию
-                                Main.Run_anim_view(this.getRootView(),3);
                                 Toast.makeText(getContext(), "Последняя", Toast.LENGTH_SHORT).show();
+                                //запустим анимацию если включено
+                                if(Main.ANIMACIA_RUN) {
+                                    Animation anim_clik = AnimationUtils.loadAnimation(getContext(), R.anim.myalpha);
+                                    v.startAnimation(anim_clik);
+                                }
+
                             }
 
 
@@ -1138,8 +1174,11 @@ public class Holst extends View implements View.OnTouchListener {
                             destroyDrawingCache();
                             invalidate();
 
-                            //запустим анимацию
-                            Main.Run_anim_view(this.getRootView(),52);
+                            //запустим анимацию если включено
+                            if(Main.ANIMACIA_RUN) {
+                                Animation anim_clik = AnimationUtils.loadAnimation(getContext(), R.anim.myscale);
+                                v.startAnimation(anim_clik);
+                            }
                         }
 
                     }

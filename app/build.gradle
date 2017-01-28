@@ -30,10 +30,6 @@ dependencies {
     compile 'com.makeramen:roundedimageview:2.2.1'
     compile 'org.jsoup:jsoup:1.9.2'
     compile project(path: ':cropimage-master:simple-crop-image-lib')
-//anim
-    compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.daimajia.easing:library:1.0.1@aar'
-    compile 'com.daimajia.androidanimations:library:1.1.3@aar'
 }
 
 
