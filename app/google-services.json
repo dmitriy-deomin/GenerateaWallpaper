@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "629062758600",
+    "firebase_url": "https://generateawallpaper.firebaseio.com",
+    "project_id": "generateawallpaper",
+    "storage_bucket": "generateawallpaper.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629062758600:android:f1c9ebaaf4b17c24",
+        "android_client_info": {
+          "package_name": "dmitriy.deomin.generateawallpaper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629062758600-vl9tp5unr31ri7c5h8f5qabp1irvehij.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dmitriy.deomin.generateawallpaper",
+            "certificate_hash": "678F3E2C1FA427F4043578E0B4A3C2F5DF77093A"
+          }
+        },
+        {
+          "client_id": "629062758600-8cne2mph1jhjcmcek2mj4nu346gvogs6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5YJ2f4t8woxsi-ZPtNdmz2vLpRntiHWY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629062758600-8cne2mph1jhjcmcek2mj4nu346gvogs6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

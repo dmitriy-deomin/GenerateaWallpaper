@@ -100,6 +100,7 @@ public class Main extends FragmentActivity {
     public final String APP_PREFERENCES = "mysettings"; // файл сохранялки
 
     TextView text_logo;
+    //t
 
     public static Context context;
 
