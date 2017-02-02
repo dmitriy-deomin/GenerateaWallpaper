@@ -15,7 +15,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:text="Имя: " />
+            android:text="@string/ima" />
 
         <TextView
             android:id="@+id/textView_name_pic"
@@ -36,7 +36,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:text="Размер: " />
+            android:text="@string/razmer" />
 
         <TextView
             android:id="@+id/textView_ves_pic"
@@ -51,26 +51,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:text="Удалить" />
+        android:text="@string/del" />
 
     <Button
         android:id="@+id/button_send"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:text="Отправить" />
+        android:text="@string/send" />
 
     <Button
         android:id="@+id/button_pic_open_sistema"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:text="Открыть в системе" />
+        android:text="@string/open_sistem" />
 
     <Button
         android:id="@+id/button_ustanovit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:text="Установить обоями" />
+        android:text="@string/ustanovit_obimi" />
 </LinearLayout>

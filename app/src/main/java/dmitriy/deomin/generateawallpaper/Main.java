@@ -212,7 +212,7 @@ public class Main extends FragmentActivity {
         //инфо
         text_logo = (TextView) findViewById(R.id.name_i_versia);
         text_logo.setTypeface(face);
-        text_logo.setText("Генератор обоев " + getVersion());
+        text_logo.setText(getString(R.string.app_name)+" "+ getVersion());
         //кнопки
         ((Button) findViewById(R.id.menu)).setTypeface(face);
 
@@ -238,10 +238,10 @@ public class Main extends FragmentActivity {
                 //если есть сохранёный проверим его с текущим если совпадает то уберём его вообще
                 if(save_read("color_fon_main").equals(String.valueOf(color_fon_main))){
                     save_value("color_fon_main","");
-                    Toast.makeText(getApplicationContext(),"Фон при запуске будет рандомный",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.fon_pri_zapuske_budet_random,Toast.LENGTH_SHORT).show();
                 }else{
                     save_value("color_fon_main",String.valueOf(color_fon_main));
-                    Toast.makeText(getApplicationContext(),"Фон сохранён",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.fon_save,Toast.LENGTH_SHORT).show();
                     ((LinearLayout) findViewById(R.id.main)).setBackgroundColor(color_fon_main);
                     //
                 }
@@ -276,7 +276,7 @@ public class Main extends FragmentActivity {
 
     public void shema(){
         final String [] mas_shem=getResources().getStringArray(R.array.shemy);
-        ((Button) findViewById(R.id.open_random_oboi)).setText("Создать обои"+"\n"+mas_shem[Schema_rand_kartinki]);
+        ((Button) findViewById(R.id.open_random_oboi)).setText(getString(R.string.sozadot_oboi)+"\n"+mas_shem[Schema_rand_kartinki]);
     }
 
     public static void update_list_files(){
@@ -289,14 +289,14 @@ public class Main extends FragmentActivity {
         }else{
             //иначе посчитаем че там есть
             filesArray = sddir.listFiles();
-            System.out.println("файлов: " + filesArray.length);
+           // System.out.println("файлов: " + filesArray.length);
 
             NUM_PAGES = filesArray.length;
 
-            for (File f: filesArray) {
-                if (f.isDirectory()) System.out.println("Folder: " + f);
-                else if (f.isFile()) System.out.println("File: " + f);
-            }
+//            for (File f: filesArray) {
+//                if (f.isDirectory()) System.out.println("Folder: " + f);
+//                else if (f.isFile()) System.out.println("File: " + f);
+//            }
         }
         //-------------------------------------------------------------
     }
@@ -434,7 +434,7 @@ public class Main extends FragmentActivity {
                     // сохраняем текст, введенный до нажатия Enter в переменную
                     if(editText.getText().toString().length()==0){
                         //скажем ченить
-                        Toast.makeText(getApplicationContext(),"Нужно какоенибуть значение(Установим по умолчанию)",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), R.string.nugno_kakoenibut_znachenie,Toast.LENGTH_LONG).show();
                         Time_dolbeshki_ekrana = 1000;
                         save_value_int("Time_dolbeshki_ekrana",Time_dolbeshki_ekrana);
                         editText.setText(String.valueOf(Time_dolbeshki_ekrana));

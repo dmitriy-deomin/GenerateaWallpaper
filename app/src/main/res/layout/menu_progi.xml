@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:onClick="O_proge"
-        android:text="О программе" />
+        android:text="@string/o_proge" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -34,13 +34,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="Анимация" />
+                    android:text="@string/animacia" />
 
                 <TextView
                     android:id="@+id/textView_info_6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text='Если не нужна , или подтормажиевает выключите' />
+                    android:text="@string/animacia_text" />
             </LinearLayout>
 
 
@@ -55,13 +55,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="Первый экран с надписями" />
+                    android:text="@string/perviy_ekran_s_help" />
 
                 <TextView
                     android:id="@+id/textView_info_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text='При нажатии кнопки "генерировать обои" первым показывается информация где какая кнопка' />
+                    android:text="@string/help_text" />
             </LinearLayout>
 
     <LinearLayout
@@ -75,13 +75,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Утанавливать обои автоматически" />
+            android:text="@string/ustanavlivat_oboi_avtomatom" />
 
         <TextView
             android:id="@+id/textView_info_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="После нажатия верхней части экрана(Кнопки сохранения ) картинка автоматически устанавливается обоями в телефоне" />
+            android:text="@string/ustanavlivat_text" />
 
     </LinearLayout>
 
@@ -96,13 +96,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Обрезать обои" />
+            android:text="@string/obrezat_oboi" />
 
         <TextView
             android:id="@+id/textView_info_4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Перед установкой(если она включена выше) будет предложено обрезать картинку чтобы был эфект прокрутки (если много рабочих столов).Если стол один рекомендуется выключить обрезку(качество картинки при обрезке падает) " />
+            android:text="@string/obrezat_text" />
 
     </LinearLayout>
 
@@ -127,7 +127,7 @@
             android:id="@+id/textView_info_5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Время автомататического тыкания\n1000 = 1 секунда \n(При длительном нажатии внизу экрана запускается )" />
+            android:text="@string/vrema_tikania" />
 
     </LinearLayout>
 
@@ -179,7 +179,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:text="Сохранить" />
+        android:text="@string/save" />
 
 </LinearLayout>
 

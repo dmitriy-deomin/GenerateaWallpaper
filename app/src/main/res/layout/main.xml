@@ -34,7 +34,7 @@
             android:layout_weight="0.1"
             android:background="@android:color/transparent"
             android:onClick="Menu"
-            android:text="Меню"
+            android:text="@string/Menu"
             android:textColor="@android:color/black"
             android:textSize="14sp" />
     </LinearLayout>
@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:onClick="Gen"
-        android:text="Создать обои"
+        android:text="@string/sozadot_oboi"
         android:textColor="@android:color/black"
         android:textSize="24sp" />
 
@@ -91,7 +91,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:onClick="Vibrat_shemu"
-        android:text="Изменить схему рисования"
+        android:text="@string/izmenit_shemu_risovania"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 

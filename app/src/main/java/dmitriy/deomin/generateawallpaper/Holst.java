@@ -163,14 +163,11 @@ public class Holst extends View implements View.OnTouchListener {
         super.onDraw(canvas);
     }
 
-
 /////
     /////
     /////*********** Схемы рисования херни *************************
     /////
 /////
-
-
     private void help_risunok(Canvas canvas) {
 
         canvas.drawColor(Main.color_fon_main);
@@ -188,21 +185,20 @@ public class Holst extends View implements View.OnTouchListener {
         canvas.drawText(getContext().getString(R.string.Ustanovit), w / 2, 200, shadowPaint);
         canvas.drawText(getContext().getString(R.string.Sgeneririvat), w / 2, h - 200, shadowPaint);
 
-        shadowPaint.setTextSize(Main.wd / 12);
-        canvas.drawText("Свайп с верху в низ", w / 2, h / 2, shadowPaint);
-        canvas.drawText("покажет кнопки навигации", w / 2, h / 2 + 60, shadowPaint);
+        shadowPaint.setTextSize(Main.wd / 15);
+        canvas.drawText(getContext().getString(R.string.Svayp_sverhu_v_niz), w / 2, h / 2, shadowPaint);
+        canvas.drawText(getContext().getString(R.string.pokaget_knopki_navigacii), w / 2, h / 2 + 60, shadowPaint);
 
         shadowPaint.setTextSize(Main.wd / 25);
-        canvas.drawText("(долгое нажатие сохранит картинку)", w / 2, 250, shadowPaint);
-        canvas.drawText("(долгое нажатие запустит автомат тыкания)", w / 2, h - 150, shadowPaint);
+        canvas.drawText(getContext().getString(R.string.dolgoe_nagatie_save_kartinku), w / 2, 250, shadowPaint);
+        canvas.drawText(getContext().getString(R.string.dolgoe_nagatie_zapustit_tik), w / 2, h - 150, shadowPaint);
         shadowPaint.setTextSize(Main.wd / 20);
-        canvas.drawText("Свайп лево/право переключить схему", w / 2, h - 300, shadowPaint);
+        canvas.drawText(getContext().getString(R.string.svayp_levo_pravo), w / 2, h - 300, shadowPaint);
 
         buildDrawingCache();
         bmp = getDrawingCache();
         canvas.drawBitmap(bmp, 0, 0, null);
     }
-
     //чистый фон
     private void shema0(Canvas canvas) {
         kist.setAntiAlias(true);
@@ -213,7 +209,6 @@ public class Holst extends View implements View.OnTouchListener {
         bmp = getDrawingCache();
         canvas.drawBitmap(bmp, 0, 0, null);
     }
-
     //круг,квадрат,линии
     private void shema1(Canvas canvas) {
         canvas.drawColor(random_color());
@@ -241,7 +236,6 @@ public class Holst extends View implements View.OnTouchListener {
 
         canvas.drawBitmap(bmp, 0, 0, null);
     }
-
     //много одинаковых квадратов
     private void shema2(Canvas canvas) {
         canvas.drawColor(random_color());
@@ -279,7 +273,6 @@ public class Holst extends View implements View.OnTouchListener {
         canvas.drawBitmap(bmp, 0, 0, null);
         //------------------------------------
     }
-
     //осколки
     private void shema3(Canvas canvas) {
         canvas.drawColor(random_color());
@@ -311,7 +304,6 @@ public class Holst extends View implements View.OnTouchListener {
         canvas.drawBitmap(bmp, 0, 0, null);
         //------------------------------------
     }
-
     //Много кругов 3-х видов
     private void shema4(Canvas canvas) {
         canvas.drawColor(random_color());
@@ -349,7 +341,6 @@ public class Holst extends View implements View.OnTouchListener {
         canvas.drawBitmap(bmp, 0, 0, null);
         //------------------------------------
     }
-
     //много мелких кругов и квадратов
     private void shema5(Canvas canvas) {
         canvas.drawColor(random_color());
@@ -384,7 +375,6 @@ public class Holst extends View implements View.OnTouchListener {
         canvas.drawBitmap(bmp, 0, 0, null);
         //------------------------------------
     }
-
     //паралельные линии
     private void shema6(Canvas canvas) {
         canvas.drawColor(random_color());
@@ -427,7 +417,6 @@ public class Holst extends View implements View.OnTouchListener {
         canvas.drawBitmap(bmp, 0, 0, null);
         //------------------------------------
     }
-
     // линии в разброс
     private void shema7(Canvas canvas) {
         canvas.drawColor(random_color());
@@ -456,7 +445,6 @@ public class Holst extends View implements View.OnTouchListener {
         canvas.drawBitmap(bmp, 0, 0, null);
         //------------------------------------
     }
-
     //Одноцветные круги по спирале Архимеда
     private void shema8(Canvas canvas) {
         canvas.drawColor(random_color());
@@ -493,7 +481,6 @@ public class Holst extends View implements View.OnTouchListener {
         canvas.drawBitmap(bmp, 0, 0, null);
         //------------------------------------
     }
-
     //Разные круги по спирале Архимеда
     private void shema9(Canvas canvas) {
         canvas.drawColor(random_color());
@@ -531,7 +518,6 @@ public class Holst extends View implements View.OnTouchListener {
         canvas.drawBitmap(bmp, 0, 0, null);
         //------------------------------------
     }
-
     //Cпираль Архимеда
     private void shema10(Canvas canvas) {
         canvas.drawColor(random_color());
@@ -580,7 +566,6 @@ public class Holst extends View implements View.OnTouchListener {
         canvas.drawBitmap(bmp, 0, 0, null);
         //------------------------------------
     }
-
     //Одноцветные квадраты по спирале Архимеда
     private void shema11(Canvas canvas) {
         canvas.drawColor(random_color());
@@ -616,7 +601,6 @@ public class Holst extends View implements View.OnTouchListener {
         canvas.drawBitmap(bmp, 0, 0, null);
         //------------------------------------
     }
-
     //Разноцветные круг в круге разноразмерные
     private void shema12(Canvas canvas) {
 
@@ -660,7 +644,6 @@ public class Holst extends View implements View.OnTouchListener {
         canvas.drawBitmap(bmp, 0, 0, null);
         //-------------------------------------
     }
-
     //Числа в разброс
     private void shema13(Canvas canvas) {
 
@@ -705,7 +688,6 @@ public class Holst extends View implements View.OnTouchListener {
 
 
     }
-
     //Буквы(а-я) в разброс
     private void shema14(Canvas canvas) {
 
@@ -751,7 +733,6 @@ public class Holst extends View implements View.OnTouchListener {
         //-------------------------------------
 
     }
-
     //Разноцветные круг в круге
     private void shema15(Canvas canvas) {
 
@@ -781,7 +762,6 @@ public class Holst extends View implements View.OnTouchListener {
         canvas.drawBitmap(bmp, 0, 0, null);
         //-------------------------------------
     }
-
     //сетка
     private void shema16(Canvas canvas) {
 
@@ -809,7 +789,6 @@ public class Holst extends View implements View.OnTouchListener {
         canvas.drawBitmap(bmp, 0, 0, null);
         //-------------------------------------
     }
-
     //Линейный градиент
     private void shema17(Canvas canvas) {
 
@@ -828,7 +807,6 @@ public class Holst extends View implements View.OnTouchListener {
         canvas.drawBitmap(bmp, 0, 0, null);
         //-------------------------------------
     }
-
     //Круговой градиент
     private void shema18(Canvas canvas) {
 
@@ -847,7 +825,6 @@ public class Holst extends View implements View.OnTouchListener {
         canvas.drawBitmap(bmp, 0, 0, null);
         //-------------------------------------
     }
-
     //Радужный градиент
     private void shema19(Canvas canvas) {
 
@@ -869,13 +846,12 @@ public class Holst extends View implements View.OnTouchListener {
 
 
 
+
 //////
     /////
     /////*********** Схемы рисования херни *************************
     /////
 /////
-
-
     private void rand_on_of_kist_sglagivanie(){
         //сглаживание краёв
         if(random_nomer(0,1)==0){
@@ -886,7 +862,6 @@ public class Holst extends View implements View.OnTouchListener {
             kist.setPathEffect(mCornerPathEffect);
         }
     }
-
     private void rand_on_of_zalivka(){
         switch (random_nomer(0,2)){
             case 0:
@@ -899,14 +874,12 @@ public class Holst extends View implements View.OnTouchListener {
                 kist.setStyle(Paint.Style.FILL_AND_STROKE);
         }
     }
-
     private int random_color() {
         int r = random_nomer(0, 255);
         int g = random_nomer(0, 255);
         int b = random_nomer(0, 255);
         return Color.rgb(r, g, b);
     }
-
     private Shader random_liner_gradient(){
 
         int count_color = random_nomer(2,15);
@@ -927,7 +900,6 @@ public class Holst extends View implements View.OnTouchListener {
 
         return  linearGradient;
     }
-
     private Shader random_radial_gradient(){
 
         int count_color = random_nomer(2,15);
@@ -948,7 +920,6 @@ public class Holst extends View implements View.OnTouchListener {
 
         return  radialGradient;
     }
-
     private Shader random_sweep_gradient(){
 
         int count_color = random_nomer(2,15);
@@ -967,14 +938,10 @@ public class Holst extends View implements View.OnTouchListener {
 
         return  sweepGradient;
     }
-
-
-
     private int random_nomer(int min, int max) {
         max -= min;
         return (int) (Math.random() * ++max) + min;
     }
-
     private void clik_view_avtomat(final Boolean run) {
 
         if (handler == null) {
@@ -1006,7 +973,6 @@ public class Holst extends View implements View.OnTouchListener {
         }
 
     }
-
     private void save_imag_file(Boolean pokaz_toast, String url_img) {
 
         //создадим папки если нет
@@ -1031,7 +997,6 @@ public class Holst extends View implements View.OnTouchListener {
         }
 
     }
-
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 

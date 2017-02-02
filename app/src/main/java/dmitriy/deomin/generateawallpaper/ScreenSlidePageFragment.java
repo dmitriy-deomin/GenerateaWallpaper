@@ -111,7 +111,7 @@ public class ScreenSlidePageFragment extends Fragment {
                         Animation anim = AnimationUtils.loadAnimation(rootView.getContext(), R.anim.myalpha);
                         v.startAnimation(anim);
                        if(Main.filesArray[pic].delete()){
-                           Toast.makeText(rootView.getContext(),"удалено",Toast.LENGTH_SHORT).show();
+                           Toast.makeText(rootView.getContext(), R.string.deletes,Toast.LENGTH_SHORT).show();
                            Main.update_list_files();
                            Main.mPagerAdapter.notifyDataSetChanged();
                            Main.mPager.setAdapter(Main.mPagerAdapter);
@@ -122,7 +122,7 @@ public class ScreenSlidePageFragment extends Fragment {
 
                            alertDialog.cancel();
                        }else {
-                           Toast.makeText(rootView.getContext(),"ошибка",Toast.LENGTH_SHORT).show();
+                           Toast.makeText(rootView.getContext(), R.string.error,Toast.LENGTH_SHORT).show();
                        }
 
                     }
@@ -167,7 +167,7 @@ public class ScreenSlidePageFragment extends Fragment {
                         sharingIntent.setType("image/*");
                        // sharingIntent.setPackage("com.android.bluetooth");
                         sharingIntent.putExtra(Intent.EXTRA_STREAM,Uri.parse(Main.filesArray[pic].getAbsolutePath()));
-                        startActivity(Intent.createChooser(sharingIntent, "Выберите куда отправить"));
+                        startActivity(Intent.createChooser(sharingIntent, getString(R.string.viberite_kuda_otpravlat)));
                         alertDialog.cancel();
                     }
                 });

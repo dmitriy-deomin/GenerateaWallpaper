@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Generator Wallpaper</string>
+    <string name="Sgeneririvat">Generate</string>
+    <string name="Ustanovit">Set Wallpaper</string>
+    <string name="obrezano_i_save">Cropped and saved</string>
+    <string name="save_i_ustanovleno">Saved and installed</string>
+    <string name="saved">Saved</string>
+    <string name="Svayp_sverhu_v_niz">Swipe from the top to the bottom</string>
+    <string name="pokaget_knopki_navigacii">show navigation buttons</string>
+    <string name="dolgoe_nagatie_save_kartinku">(long press will save the image)</string>
+    <string name="dolgoe_nagatie_zapustit_tik">(long press will start the machine poking)</string>
+    <string name="svayp_levo_pravo">Swipe left/right to switch the scheme</string>
+    <string name="Menu">Menu</string>
+    <string name="sozadot_oboi">Create Wallpaper</string>
+    <string name="izmenit_shemu_risovania">To change the layout of the drawing</string>
+    <string name="fon_save">Background saved</string>
+    <string name="fon_pri_zapuske_budet_random">Background at the launch will be random</string>
+    <string name="nugno_kakoenibut_znachenie">Need kakoinibut value(Set default)</string>
+
+    <string name="info_o_proge">
+        Generate a Wallpaper\n\n
+        created Deomin Dmitriy 2017\n\n
+        lib:\n
+        crop-https://github.com/biokys/cropimage
+        \n
+        image-com.squareup.picasso:picasso:2.5.2
+         \n
+        com.makeramen:roundedimageview:2.2.1
+        \n\n\n
+        The picture is generated randomly(Sunny beach), each following a unique
+        \n\n
+        Click on the logo to change the background color
+        \n
+        Long tap on the logo will retain/remove the color
+    </string>
+    <string name="o_proge">About the program</string>
+    <string name="animacia">Animation</string>
+    <string name="animacia_text">If not needed , or brakes off</string>
+    <string name="perviy_ekran_s_help">The first screen with inscriptions</string>
+    <string name="help_text">When you click generate the first Wallpaper displayed where which button is</string>
+    <string name="ustanavlivat_oboi_avtomatom">Set Wallpaper automatically</string>
+    <string name="ustanavlivat_text">After pressing the top of the screen(save Button ) the picture is automatically set to Wallpaper phone</string>
+    <string name="obrezat_oboi">Crop Wallpaper</string>
+    <string name="obrezat_text">Before installing(if enabled above) will be asked to crop the picture to effect a scroll (if a lot of desktops).If the table is one we recommend to turn off pruning(the picture quality when you crop falls)</string>
+    <string name="vrema_tikania">Automatic poking 1000 = 1 second (a long press at the bottom of the screen to start )</string>
+    <string name="save">Save</string>
+    <string name="vvedite_dla_poiska">Enter to search</string>
+    <string name="del">Delete</string>
+    <string name="send">Send</string>
+    <string name="open_sistem">Open the system</string>
+    <string name="ustanovit_obimi">Set Wallpaper</string>
+    <string name="ima">Name:</string>
+    <string name="razmer">Size:</string>
+    <string name="deletes">Removed</string>
+    <string name="error">error</string>
+    <string name="viberite_kuda_otpravlat">Select where to send</string>
+
+
+    <string-array name="shemy">
+        <item>1. Clean background</item>
+        <item>2. Circle,square,line</item>
+        <item>3. A lot of the same squares(3 colors)</item>
+        <item>4. Fragments</item>
+        <item>5. A lot of laps 3 types</item>
+        <item>6. A lot of different circles and squares</item>
+        <item>7. Parallel lines</item>
+        <item>8. Lines in scatter</item>
+        <item>9. Single-color circles on a spiral of Archimedes</item>
+        <item>10. Different circles on a spiral of Archimedes</item>
+        <item>11. The Spiral Of Archimedes</item>
+        <item>12. Single-color squares on a spiral of Archimedes</item>
+        <item>13. The colored circle in the round(different size)</item>
+        <item>14. The numbers in the spread</item>
+        <item>15. The letters in the spread</item>
+        <item>16. Colorful circle in a circle</item>
+        <item>17. Mesh</item>
+        <item>18. A linear gradient</item>
+        <item>19. Circular gradient</item>
+        <item>20. Rainbow gradient</item>
+    </string-array>
+
+</resources>

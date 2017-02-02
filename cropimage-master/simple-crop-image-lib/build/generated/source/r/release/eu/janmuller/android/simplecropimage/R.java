@@ -33,11 +33,11 @@ public final class R {
     }
     public static final class string {
         public static int cancel=0x7f040000;
-        public static int no_storage_card=0x7f040001;
-        public static int not_enough_space=0x7f040002;
-        public static int preparing_card=0x7f040003;
-        public static int save=0x7f040004;
-        public static int saving_image=0x7f040005;
+        public static int no_storage_card=0x7f040003;
+        public static int not_enough_space=0x7f040004;
+        public static int preparing_card=0x7f040005;
+        public static int save=0x7f040001;
+        public static int saving_image=0x7f040002;
     }
     public static final class style {
         public static int CropButton=0x7f050000;

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="введите для поиска"
+        android:hint="@string/vvedite_dla_poiska"
         android:inputType="textPersonName"
         android:paddingTop="20dp" />
 
