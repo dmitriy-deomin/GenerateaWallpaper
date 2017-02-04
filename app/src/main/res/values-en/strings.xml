@@ -78,6 +78,13 @@
         <item>18. A linear gradient</item>
         <item>19. Circular gradient</item>
         <item>20. Rainbow gradient</item>
+        <item>21. A circular fractal</item>
+        <item>22. A circular fractal random</item>
+        <item>23. Fractal Dragon Harter-Hatuey</item>
+        <item>24. The Koch Snowflake</item>
+        <item>25. N-fractal</item>
+        <item>26. Mandelbrot clouds</item>
+        <item>27. The center of mass of a triangle</item>
     </string-array>
 
 </resources>

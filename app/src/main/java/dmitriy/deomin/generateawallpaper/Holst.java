@@ -9,6 +9,7 @@ import android.graphics.CornerPathEffect;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Point;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
 import android.graphics.SweepGradient;
@@ -151,6 +152,35 @@ public class Holst extends View implements View.OnTouchListener {
                     //Радужный градиент
                     shema19(canvas);
                     break;
+                case 20:
+                    //круговой фрактал 1
+                    shema20(canvas);
+                    break;
+                case 21:
+                    //круговой фрактал 2 рандом
+                    shema21(canvas);
+                    break;
+                case 22:
+                    //Фрактал Дракон Хартера-Хейтуэя
+                    shema22(canvas);
+                    break;
+                case 23:
+                    //Снежинка Коха
+                    shema23(canvas);
+                    break;
+                case 24:
+                    //Н-фрактал
+                    shema24(canvas);
+                    break;
+                case 25:
+                    //Мандельбротовы облака
+                    shema25(canvas);
+                    break;
+                case 26:
+                    //Центр масс треугольника
+                    shema26(canvas);
+                    break;
+
             }
         }
 
@@ -688,7 +718,7 @@ public class Holst extends View implements View.OnTouchListener {
 
 
     }
-    //Буквы(а-я) в разброс
+    //Буквы(а-я, a-z) в разброс
     private void shema14(Canvas canvas) {
 
         canvas.drawColor(random_color());
@@ -706,7 +736,11 @@ public class Holst extends View implements View.OnTouchListener {
 
         String[] mas_num = {"А","а", "Б","б", "В","в", "Г","г", "Д","д","Е", "е","Ё", "ё","Ж", "ж","З", "з","И", "и"
         ,"Й","й","К","к","Л","л","М","м","Н","н","О","о","П","п","Р","р","С","с","Т","т","У","у","Ф","ф","Ц","ц","Ч","ч","Ш","ш"
-                ,"Щ","щ","Ъ","ъ","Ы","ы","Ь","ь","Э","э","Ю","ю","Я","я"};
+                ,"Щ","щ","Ъ","ъ","Ы","ы","Ь","ь","Э","э","Ю","ю","Я","я",
+
+        "A","a","B","b","C","c","D","d","E","e","F","f","G","g","H","h","I","i","J","j","K","k","L","l","M","m",
+                "N","n","O","o","P","p","Q","q","R","r","S","s","T","t","U","u","V","v","W","w","X","x","Y","y","Z","z"
+        };
 
 
         for (int i = 0; i != count_number; i++) {
@@ -715,7 +749,7 @@ public class Holst extends View implements View.OnTouchListener {
 
             int xn = random_nomer(0, w);
             int yn = random_nomer(0, h);
-            int number = random_nomer(0, 9);
+            int number = random_nomer(0, mas_num.length-1);
 
             kist.setColor(random_color());
 
@@ -843,15 +877,439 @@ public class Holst extends View implements View.OnTouchListener {
         canvas.drawBitmap(bmp, 0, 0, null);
         //-------------------------------------
     }
+    //круговой фрактал 1
+    private void shema20(Canvas canvas) {
+
+        //толщина линии
+        kist.setStrokeWidth(1);
+        //
+        kist.setStyle(Paint.Style.STROKE);
+        //
+        kist.setAntiAlias(true);
+        //будем случайно просто цветом заливать
+        canvas.drawColor(random_color());
+        //
+        kist.setColor(random_color());
+        //рекурсивная функция
+        DrCirc(w/2,h/2,w/2,canvas);
+
+
+
+        //это херня обязательна
+        //--------------------
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+        //-------------------------------------
+    }
+    //круговой фрактал 2 random
+    private void shema21(Canvas canvas) {
+        //толщина линии
+        kist.setStrokeWidth(1);
+        //
+        kist.setStyle(Paint.Style.STROKE);
+        //
+        kist.setAntiAlias(true);
+        //будем случайно просто цветом заливать
+        canvas.drawColor(random_color());
+        //
+        kist.setColor(random_color());
+        //рекурсивная функция
+        DrCirc_random(w/2,h/2,w/2,canvas);
+
+
+
+        //это херня обязательна
+        //--------------------
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+        //-------------------------------------
+    }
+    //Фрактал Дракон Хартера-Хейтуэя
+    private void shema22(Canvas canvas) {
+
+
+        //толщина линии
+        kist.setStrokeWidth(random_nomer(1,3));
+        //
+        kist.setStyle(Paint.Style.STROKE);
+        //
+        kist.setAntiAlias(true);
+        //будем случайно просто цветом заливать
+        canvas.drawColor(random_color());
+        //
+        kist.setColor(random_color());
+        //рекурсивная функция
+        drawDragon(random_nomer(0,w), random_nomer(0,h), random_nomer(0,w), random_nomer(0,h), 15, canvas);
+
+
+
+        //это херня обязательна
+        //--------------------
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+        //-------------------------------------
+    }
+    //Снежинка Коха
+    private void shema23(Canvas canvas) {
+
+        //
+        kist.setStyle(Paint.Style.STROKE);
+        //
+        kist.setStrokeWidth(random_nomer(1, 10));
+
+        kist.setAntiAlias(true);
+        //фон будем случайно просто цветом заливать
+        canvas.drawColor(random_color());
+        //
+        kist.setColor(random_color());
+
+
+        /**
+         * Рисует рекурсивно линию Коха. При этом отрезок (a; b) делится на 3 равных
+         * части. Средняя из них заменяется равносторонним треугольником со стороной
+         * равной данной и без данной стороны (рисуется только две, не принадлежащие
+         * отрезку стороны треугольника).
+         *
+         * @param g
+         *            the specified Graphics context
+         * @param a
+         *            начальная точка линии
+         * @param b
+         *            конечная точка линии
+         * @param fi
+         *            угол поворота линии
+         * @param n
+         *            оставшаяся глубина рекурсии
+         */
+
+        for (int i=0;i<2;i++){
+            if(i==0){
+                Point a=new Point(0,10);
+                Point b=new Point(w,10);
+                //рекурсивная функция
+                drawKochLine(canvas,a,b,0,7);
+            }
+            if(i==1){
+                Point a=new Point(w,10);
+                Point b=new Point(10,h);
+                //рекурсивная функция
+                drawKochLine(canvas,a,b,90,7);
+            }
+        }
+
+
+        //это херня обязательна
+        //--------------------
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+        //-------------------------------------
+    }
+    //Н-фрактал
+    private void shema24(Canvas canvas) {
+
+        //
+        kist.setStyle(Paint.Style.STROKE);
+        //
+        kist.setStrokeWidth(random_nomer(1, 3));
+        //
+        kist.setAntiAlias(true);
+        //фон будем случайно просто цветом заливать
+        canvas.drawColor(random_color());
+        //
+        kist.setColor(random_color());
+
+        DrawHF(canvas,w/2,h/2,random_nomer(w/5,w/3),random_nomer(3,7));
+
+
+
+        //это херня обязательна
+        //--------------------
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+        //-------------------------------------
+    }
+    //Мандельбротовы облака (взято из http://grafika.me/node/372)
+    private void shema25(Canvas canvas) {
+
+  //подготовка кисти
+   //*************************************
+        //стиль(заливка или обводка)
+        kist.setStyle(Paint.Style.FILL);
+        //толщина кисти
+        kist.setStrokeWidth(1);
+        //сглаживание
+        kist.setAntiAlias(false);
+        //фон будем случайно просто цветом заливать
+        canvas.drawColor(random_color());
+        //случайный цвет кисти
+       // kist.setColor(random_color());
+  //********************************************
+
+        double SX = 0.007;// Чем больше значение тем больше точки похожи на плоскость
+        double SY = 0.007;
+        double DX = -w/2;// для центровки внутри фрейма
+        double DY = -h/2;// для центровки внутри фрейма
+        int COUNT_ITER = 3;// число итераций, чем больше число - тем больше точек
+        int BAIL_OUT = 20;
+        int STEP_X = 15;
+        int STEP_Y = 15;
+
+        for (int i = 0; i < w; i += STEP_X) {
+            for (int j = 0; j < h; j += STEP_Y) {
+                double c = SX * (i + DX); // центрируем по X
+                double d = SY * (j + DY); // центрируем по Y
+                double x = c; // ось х
+                double y = d; // ось y
+                double t;
+                int k = 0;
+
+                kist.setColor(random_color());// при каждой итерации цикла получаем новый цвет
+
+                while (x * x + y * y < BAIL_OUT && k < COUNT_ITER) { // алгоритм
+                    t = x * x - y * y + c;
+                    y = 2 * x * y + d;
+                    x = t;
+                    canvas.drawCircle((int) (x / SX - DX), (int) (y / SY - DY), 4,kist);
+                    ++k;
+                }
+            }
+        }
 
 
 
 
+        //это херня обязательна
+        //--------------------
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+        //-------------------------------------
+    }
+    //Центр масс треугольника (взято из http://grafika.me/node/371)
+    private void shema26(Canvas canvas) {
+
+        //подготовка кисти
+        //*************************************
+        //стиль(заливка или обводка)
+        kist.setStyle(Paint.Style.FILL);
+        //толщина кисти
+        kist.setStrokeWidth(random_nomer(1,5));
+        //сглаживание
+        kist.setAntiAlias(true);
+        //фон будем случайно просто цветом заливать
+        canvas.drawColor(random_color());
+        //случайный цвет кисти
+        // kist.setColor(random_color());
+        //********************************************
+
+        int pozicia = w/2;
+
+        Point A=new Point(w/2,pozicia);//выберем начальные точки, чтоб красиво смотрелись
+        Point B=new Point(w-20,w+pozicia);
+        Point C=new Point(20,w+pozicia);
+        canvas.drawLine(A.x, A.y, B.x, B.y,kist);//рисуем изначальный треугольник
+        canvas.drawLine(B.x, B.y, C.x, C.y,kist);
+        canvas.drawLine(A.x, A.y, C.x, C.y,kist);
+
+
+        drawMCT(canvas, A,B,C,7);//вызываем отрисовку фрактала
+
+
+
+
+        //это херня обязательна
+        //--------------------
+        buildDrawingCache();
+        bmp = getDrawingCache();
+        canvas.drawBitmap(bmp, 0, 0, null);
+        //-------------------------------------
+    }
 //////
     /////
     /////*********** Схемы рисования херни *************************
     /////
 /////
+
+    //Центр масс треугольника взял от сюда
+    //http://grafika.me/node/371
+    public int drawMCT(Canvas g, Point A, Point B,Point C, int iter) {
+        //в качестве параметров точки А В С и кол-во итераций
+        //g - экземпляр библиотечного класса, ответственного за отрисовку
+        if(iter==0) //если итераций 0, выход
+            return 0;
+        Point D=new Point(); //точка центра масс
+        Point v1 =new Point();//вектор AB
+        Point v2=new Point();//вектор AC
+        v1.x=B.x-A.x;
+        v1.y=B.y-A.y;
+        v2.x=C.x-A.x;
+        v2.y=C.y-A.y;
+        D.x=A.x+(v1.x+v2.x)/3; //к точке А прибавим сумму векторов AВ и AC, деленную на 3
+        D.y=A.y+(v1.y+v2.y)/3; //и получим координаты центра масс
+
+
+        kist.setColor(random_color());
+
+        g.drawLine(A.x,A.y,D.x,D.y,kist);//рисуем отрезки от вершин к центру масс
+        g.drawLine(B.x,B.y,D.x,D.y,kist);
+        g.drawLine(C.x,C.y,D.x,D.y,kist);
+
+        drawMCT(g,A,B,D,iter-1);//вызываем рекурсивно процендуру для полученных
+        drawMCT(g,B,C,D,iter-1);//треугольников, с итерацией, меньшей на 1
+        drawMCT(g,A,C,D,iter-1);
+
+        return 0;
+
+    }
+    //Н-фрактал
+    //***************************************************
+    //взял от сюда
+    //http://grafika.me/node/438
+    public void DrawH(Canvas g, float x, float y, int raz){		// метод рисующий Н
+
+
+        g.drawLine( x - raz, y - raz, x - raz, y + raz,kist);
+        g.drawLine (x - raz, y, x + raz, y,kist);
+        g.drawLine( x + raz, y - raz, x + raz, y + raz,kist);
+
+
+    }
+    private void DrawHF(Canvas g, int x1, int y1, int razmer, int min){
+
+        int x11 = x1 + razmer; int y11 = y1 + razmer;
+        int x01 = x1 - razmer; int y01 = y1 + razmer;
+        int x00 = x1 - razmer; int y00 = y1 - razmer;
+        int x10 = x1 + razmer; int y10 = y1 - razmer;
+
+        DrawH(g, x1, y1, razmer);
+        razmer = razmer/2;
+
+        if(razmer >= min){
+            DrawHF(g, x11, y11, razmer, min);
+            DrawHF(g, x01, y01, razmer, min);
+            DrawHF(g, x10, y10, razmer, min);
+            DrawHF(g, x00, y00, razmer, min);
+        }
+
+    }
+    //**************************************************************
+    //Снежинка Коха
+    public void drawKochLine(Canvas g, Point a, Point b, double fi, int n) {
+        //взял от сюда
+        //http://grafika.me/node/437
+        //
+
+
+        if (n <= 0) {
+            // рисуем прямую, если достигнута необходимая глубина рекурсии.
+            g.drawLine(a.x, a.y, b.x, b.y,kist);
+        } else {
+            // находим длину отрезка (a; b).
+            double length = Math.pow(Math.pow(b.y - a.y, 2)
+                    + Math.pow(b.x - a.x, 2), 0.5);
+            // находим длину 1/3 отрезка (a; b)
+            double length1of3 = length / 3;
+
+            // находим т., делящую отрезок как 1:3.
+            Point a1 = new Point(a.x
+                    + (int) Math.round((length1of3 * Math.cos(fi))), a.y
+                    + (int) Math.round((length1of3 * Math.sin(fi))));
+
+            // находим т., делящую отрезок как 2:3.
+            Point b1 = new Point(a1.x
+                    + (int) Math.round((length1of3 * Math.cos(fi))), a1.y
+                    + (int) Math.round((length1of3 * Math.sin(fi))));
+
+            // находим т., которая будет вершиной равностороннего
+            // треугольника.
+            Point c = new Point(a1.x
+                    + (int) Math
+                    .round((length1of3 * Math.cos(fi + Math.PI / 3))),
+                    a1.y
+                            + (int) Math.round((length1of3 * Math.sin(fi
+                            + Math.PI / 3))));
+
+            n--;
+            drawKochLine(g, a1, c, fi + Math.PI / 3, n);
+            drawKochLine(g, c, b1, fi - Math.PI / 3, n);
+
+            n--;
+            drawKochLine(g, a, a1, fi, n);
+            drawKochLine(g, b1, b, fi, n);
+        }
+    }
+    //Фрактал Дракон Хартера-Хейтуэя
+    private void drawDragon(int x1, int y1, int x2, int y2, int n, Canvas g)//Основная рекурсивная функция
+    {
+        //взял от сюда
+        //http://grafika.me/node/463
+        //
+
+
+        int xn, yn;
+        if(n > 0) //Пока n > 0 - продолжаем поворачивать прямые на 90 градусов и  уменьшать их размеры
+        {
+            xn = (x1 + x2) / 2 + (y2 - y1) / 2;
+            yn = (y1 + y2) / 2 - (x2 - x1) / 2 ;
+            drawDragon(x2, y2, xn, yn, n - 1, g);
+            drawDragon(x1, y1, xn, yn, n - 1, g);
+        }
+        if(n == 3)//Приступаем к рисованию прямых
+            g.drawLine(x1, y1, x2, y2,kist);
+    }
+    //№20 круговой фрактал
+    public void DrCirc(double x, double y, int size, Canvas g) {
+        //------------------------------
+        // взял от сюда
+        //----------------------------
+        //http://grafika.me/node/532
+        //-----------------------------
+
+        //количество кругов
+        int N =6;
+
+        int c = 3, rad = 0, den = 0;
+        //всего получится (N+1) окружность
+        //новые окружности будут иметь радиус size/c
+        if (size > 3) {
+            rad = Math.round(size/c);       //уменьшаем радиус
+            den = Math.round(size*(c-1)/c);
+            DrCirc(x, y, rad, g);           //центральная окружность
+            for(int i = 0; i < N; i++){     //все остальные окружности
+                DrCirc(x - Math.round(den*Math.sin(2*Math.PI/N*i)), y + Math.round(den*Math.cos(2*Math.PI/N*i)), rad, g);
+            }
+            g.drawCircle((float) (x-size), (float) y-size, 2*size,kist);
+        }
+    }
+    //№21 круговой фрактал random
+    public void DrCirc_random(double x, double y, int size, Canvas g) {
+    //------------------------------
+    // взял от сюда
+    //----------------------------
+    //http://grafika.me/node/532
+    //-----------------------------
+
+    //количество кругов
+    int N = random_nomer(6,10);
+
+    int c = N/2, rad = 0, den = 0;
+    //всего получится (N+1) окружность
+    //новые окружности будут иметь радиус size/c
+    if (size > 3) {
+        rad = Math.round(size/c);       //уменьшаем радиус
+        den = Math.round(size*(c-1)/c);
+        DrCirc_random(x, y, rad, g);           //центральная окружность
+        for(int i = 0; i < N; i++){     //все остальные окружности
+            DrCirc_random(x - Math.round(den*Math.sin(2*Math.PI/N*i)), y + Math.round(den*Math.cos(2*Math.PI/N*i)), rad, g);
+        }
+        g.drawCircle((float) (x-size), (float) y-size, 2*size,kist);
+    }
+}
     private void rand_on_of_kist_sglagivanie(){
         //сглаживание краёв
         if(random_nomer(0,1)==0){
