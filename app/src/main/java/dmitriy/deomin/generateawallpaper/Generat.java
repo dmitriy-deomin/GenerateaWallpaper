@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+import dmitriy.deomin.generateawallpaper.surfase.MySurfaceView;
 import eu.janmuller.android.simplecropimage.CropImage;
 
 import static android.R.attr.height;
@@ -35,6 +36,7 @@ public class Generat extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(new Holst(this));
+        //setContentView(new MySurfaceView(this));
 
        //чтобы экран не гас
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
