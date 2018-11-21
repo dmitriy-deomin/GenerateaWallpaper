@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "dmitriy.deomin.generateawallpaper"
         minSdkVersion 15
@@ -19,17 +19,25 @@ android {
     }
 }
 
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
+    }
+}
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
-    compile 'com.google.firebase:firebase-ads:10.0.1'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.makeramen:roundedimageview:2.2.1'
-    compile 'org.jsoup:jsoup:1.9.2'
-    compile project(path: ':cropimage-master:simple-crop-image-lib')
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.google.firebase:firebase-ads:16.0.1'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.makeramen:roundedimageview:2.2.1'
+    implementation 'org.jsoup:jsoup:1.9.2'
+    implementation project(path: ':cropimage-master:simple-crop-image-lib')
 }
 
 
