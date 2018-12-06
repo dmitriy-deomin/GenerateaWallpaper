@@ -22,6 +22,8 @@ class Buton_generirovat : Button {
         this.typeface = Main.face
     }
 
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         this.typeface = Main.face

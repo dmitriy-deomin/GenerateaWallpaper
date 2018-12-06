@@ -145,7 +145,6 @@ class ScreenSlidePageFragment : Fragment() {
 
                 val sharingIntent = Intent(Intent.ACTION_SEND)
                 sharingIntent.type = "image/*"
-                // sharingIntent.setPackage("com.android.bluetooth");
                 sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(Main.filesArray[pic].absolutePath))
                 startActivity(Intent.createChooser(sharingIntent, getString(R.string.viberite_kuda_otpravlat)))
                 alertDialog.cancel()
@@ -212,7 +211,7 @@ class ScreenSlidePageFragment : Fragment() {
 
                 val path = data.getStringExtra(CropImage.IMAGE_PATH) ?: return
 
-//если включена установка обоев
+                //если включена установка обоев
                 if (Main.auto_oboi_crete) {
                     //увеличим картинку и установим обоями
                     val bitmap = BitmapFactory.decodeFile(Main.filesArray[pic].toString())

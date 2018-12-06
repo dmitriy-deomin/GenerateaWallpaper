@@ -77,10 +77,6 @@ class Generat : Activity() {
                             Toast.makeText(applicationContext, R.string.saved, Toast.LENGTH_SHORT).show()
                         }
                     }
-
-
-                    //выключаем приемник
-                    unregisterReceiver(this)
                 }
             }
         }
@@ -120,7 +116,7 @@ class Generat : Activity() {
 
                 val path = data.getStringExtra(CropImage.IMAGE_PATH) ?: return
 
-//если включена установка обоев
+                 //если включена установка обоев
                 if (Main.auto_oboi_crete) {
                     //увеличим картинку и установим обоями
                     val bitmap = BitmapFactory.decodeFile(file)
