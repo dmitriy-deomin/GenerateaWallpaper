@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cancel">Отмена</string>
+    <string name="no_storage_card" translatable="false">No storage card</string>
+    <string name="not_enough_space" translatable="false">Not enough space</string>
+    <string name="preparing_card" translatable="false">Preparing card</string>
+    <string name="save">Готово</string>
+    <string name="saving_image">Сохранение...</string>
+    <style name="CropButton">
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">60dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/selector_crop_button</item>
+    </style>
+</resources>
